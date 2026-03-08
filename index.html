@@ -1,72 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<style>
-
-body{
-background:#0f0f0f;
-color:white;
-font-family:sans-serif;
-margin:20px;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:15px;
-}
-
-img{
-width:100%;
-border-radius:10px;
-}
-
-a{
-text-decoration:none;
-color:white;
-}
-
-</style>
-</head>
-
-<body>
-
-<div class="grid" id="videos"></div>
+<title>Unlock Link</title>
 
 <script>
+function openAd(){
+window.open("https://omg10.com/4/10697514","_blank");
 
-const channel="UC6wYoQiwRAFNf9MHlvJQbKA";
-
-fetch("https://www.youtube.com/feeds/videos.xml?channel_id="+channel)
-.then(r=>r.text())
-.then(str => new window.DOMParser().parseFromString(str,"text/xml"))
-.then(data=>{
-
-let items=data.querySelectorAll("entry")
-let html=""
-
-for(let i=0;i<3;i++){
-
-let link=items[i].querySelector("link").getAttribute("href")
-let id=link.split("v=")[1]
-
-let title=items[i].querySelector("title").textContent
-
-html+=`
-<a href="${link}" target="_blank">
-<img src="https://img.youtube.com/vi/${id}/hqdefault.jpg">
-<p>${title}</p>
-</a>
-`
-
+setTimeout(function(){
+window.location.href="https://sites.google.com/view/realraxsc/REDz-Hub-Script";
+},5000);
 }
-
-document.getElementById("videos").innerHTML=html
-
-})
-
 </script>
+
+</head>
+
+<body style="text-align:center;font-family:Arial;margin-top:100px;">
+
+<h2>🔒 Link Locked</h2>
+<p>Click the button and wait 5 seconds</p>
+
+<button onclick="openAd()" style="padding:15px 30px;font-size:18px;">
+Unlock Link
+</button>
 
 </body>
 </html>
