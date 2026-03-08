@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Get Link</title>
+
 <style>
 body{
 margin:0;
@@ -11,7 +12,7 @@ display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-font-family:Arial, sans-serif;
+font-family:Arial;
 background:#000;
 color:#fff;
 overflow:hidden;
@@ -43,6 +44,19 @@ background:#444;
 cursor:not-allowed;
 }
 
+#target{
+display:none;
+margin-top:20px;
+}
+
+#target a{
+color:#00ff9c;
+font-size:18px;
+text-decoration:none;
+}
+
+/* หิมะ */
+
 .snow{
 position:fixed;
 top:-10px;
@@ -55,6 +69,7 @@ animation:fall linear forwards;
 @keyframes fall{
 to{transform:translateY(110vh);}
 }
+
 </style>
 </head>
 
@@ -64,12 +79,20 @@ to{transform:translateY(110vh);}
 
 <button id="btn" onclick="unlock()">🚀 Get Link</button>
 
+<div id="target">
+<a href="https://sites.google.com/view/realraxsc/home-%E0%B8%AB%E0%B8%99%E0%B8%B2%E0%B9%80%E0%B8%A7%E0%B9%87%E0%B8%9A%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%81" target="_blank">
+➡ Go To Website
+</a>
+</div>
+
 <script>
 
-function createSnow(){
+/* หิมะ */
+
+function snow(){
 let s=document.createElement("div");
 s.className="snow";
-s.textContent="•";
+s.innerHTML="•";
 s.style.left=Math.random()*100+"%";
 s.style.fontSize=(Math.random()*6+4)+"px";
 
@@ -81,29 +104,43 @@ document.body.appendChild(s);
 setTimeout(()=>{s.remove();},duration*1000);
 }
 
-setInterval(createSnow,120);
+setInterval(snow,120);
+
+
+/* ระบบปุ่ม */
 
 function unlock(){
+
 let btn=document.getElementById("btn");
 let status=document.getElementById("status");
+let target=document.getElementById("target");
 
 btn.disabled=true;
 
 window.open("https://omg10.com/4/10697514","_blank");
 
 let time=5;
-status.textContent="Please wait "+time+"s";
+
+status.innerText="Please wait "+time+"s";
 
 let timer=setInterval(function(){
+
 time--;
-status.textContent="Please wait "+time+"s";
+
+status.innerText="Please wait "+time+"s";
 
 if(time<=0){
+
 clearInterval(timer);
-window.location.href="https://sites.google.com/view/realraxsc/home-%E0%B8%AB%E0%B8%99%E0%B8%B2%E0%B9%80%E0%B8%A7%E0%B9%87%E0%B8%9A%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%81";
+
+status.innerText="Link Ready";
+
+target.style.display="block";
+
 }
 
 },1000);
+
 }
 
 </script>
