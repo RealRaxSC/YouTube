@@ -24,8 +24,6 @@ color:#fff;
 overflow:hidden;
 text-align:center;
 
-/* Gradient background */
-
 background:linear-gradient(120deg,#052a47,#00a8a8,#0d6efd);
 background-size:300% 300%;
 animation:bgmove 12s ease infinite;
@@ -36,8 +34,6 @@ animation:bgmove 12s ease infinite;
 50%{background-position:100% 50%;}
 100%{background-position:0% 50%;}
 }
-
-/* กล่องกลาง */
 
 .container{
 width:90%;
@@ -50,11 +46,54 @@ box-shadow:0 0 25px rgba(0,0,0,0.6);
 }
 
 #status{
-margin-bottom:20px;
+margin-bottom:15px;
 font-size:18px;
 }
 
-/* ปุ่ม Get Link */
+/* Progress bar */
+
+#progress{
+width:100%;
+height:10px;
+background:rgba(255,255,255,0.15);
+border-radius:30px;
+overflow:hidden;
+margin-bottom:20px;
+display:none;
+}
+
+#bar{
+height:100%;
+width:0%;
+background:linear-gradient(
+90deg,
+#00ffb3,
+#00e081,
+#00ffb3
+);
+
+background-size:200% 100%;
+
+animation:shine 2s linear infinite;
+
+transition:width 0.1s linear;
+
+box-shadow:0 0 10px rgba(0,255,179,0.6);
+}
+
+@keyframes shine{
+
+0%{
+background-position:200% 0;
+}
+
+100%{
+background-position:-200% 0;
+}
+
+}
+
+/* ปุ่ม */
 
 button{
 width:100%;
@@ -115,8 +154,6 @@ background:rgba(255,255,255,0.15);
 animation:float 10s linear infinite;
 }
 
-/* Bubble animation (โผล่ในจอเร็วขึ้น) */
-
 @keyframes float{
 
 0%{
@@ -169,6 +206,10 @@ opacity:0;
 
 <div id="status">Click Get Link</div>
 
+<div id="progress">
+<div id="bar"></div>
+</div>
+
 <button onclick="openAds()">🚀 Get Link</button>
 
 <div id="target">
@@ -203,7 +244,7 @@ setTimeout(()=>{b.remove()},10000);
 
 }
 
-setInterval(createBubble,1200);
+setInterval(createBubble,600);
 
 
 /* เส้นตก */
@@ -252,33 +293,49 @@ adOpened=false;
 });
 
 
-/* นับเวลา */
+/* Smooth countdown */
 
 function startCountdown(){
 
-let time=5;
+let duration=5000;
+let start=Date.now();
 
 let status=document.getElementById("status");
+let progress=document.getElementById("progress");
+let bar=document.getElementById("bar");
 
-status.innerText="Please wait "+time+"s";
+progress.style.display="block";
 
-let timer=setInterval(function(){
+function update(){
 
-time--;
+let now=Date.now();
+let elapsed=now-start;
 
-status.innerText="Please wait "+time+"s";
+let percent=Math.min(elapsed/duration*100,100);
 
-if(time<=0){
+bar.style.width=percent+"%";
 
-clearInterval(timer);
+let seconds=Math.ceil((duration-elapsed)/1000);
+
+status.innerText="Please wait "+seconds+"s";
+
+if(percent<100){
+
+requestAnimationFrame(update);
+
+}else{
 
 status.innerText="Link Ready";
+
+progress.style.display="none";
 
 document.getElementById("target").style.display="block";
 
 }
 
-},1000);
+}
+
+update();
 
 }
 
