@@ -1,66 +1,170 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Background</title>
+<title>Get Link</title>
 
 <style>
 
+*{
+box-sizing:border-box;
+}
+
 body{
 margin:0;
-height:100vh;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:Arial, sans-serif;
+color:#fff;
 overflow:hidden;
-font-family:sans-serif;
+text-align:center;
 
-/* gradient ขาวดำ */
+/* พื้นหลัง + ขอบมืด */
 
-background: linear-gradient(135deg,#ffffff,#dcdcdc,#bfbfbf);
+background:
+radial-gradient(circle at center,
+rgba(0,0,0,0) 40%,
+rgba(0,0,0,0.65) 100%),
+linear-gradient(120deg,#052a47,#00a8a8,#0d6efd);
+
+background-size:100% 100%,300% 300%;
+animation:bgmove 12s ease infinite;
+}
+
+@keyframes bgmove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.container{
+width:90%;
+max-width:420px;
+padding:30px;
+background:rgba(0,0,0,0.55);
+border-radius:15px;
+backdrop-filter:blur(6px);
+box-shadow:0 0 25px rgba(0,0,0,0.6);
+}
+
+#status{
+margin-bottom:15px;
+font-size:18px;
+}
+
+/* Progress bar */
+
+#progress{
+width:100%;
+height:10px;
+background:rgba(255,255,255,0.15);
+border-radius:30px;
+overflow:hidden;
+margin-bottom:20px;
+display:none;
+}
+
+#bar{
+height:100%;
+width:0%;
+background:linear-gradient(
+90deg,
+#00ffb3,
+#00e081,
+#00ffb3
+);
+
+background-size:200% 100%;
+
+animation:shine 2s linear infinite;
+
+transition:width 0.1s linear;
+
+box-shadow:0 0 10px rgba(0,255,179,0.6);
+}
+
+@keyframes shine{
+
+0%{
+background-position:200% 0;
+}
+
+100%{
+background-position:-200% 0;
+}
 
 }
 
-/* bubble */
+/* ปุ่ม */
+
+button{
+width:100%;
+padding:16px;
+font-size:18px;
+border:none;
+border-radius:12px;
+background:linear-gradient(#ff4b4b,#ff0000);
+color:white;
+cursor:pointer;
+box-shadow:0 10px 25px rgba(0,0,0,0.6);
+transition:all 0.2s ease;
+}
+
+button:hover{
+transform:translateY(-3px);
+}
+
+button:active{
+transform:scale(0.96);
+box-shadow:0 4px 10px rgba(0,0,0,0.6);
+}
+
+/* ปุ่มปลายทาง */
+
+#target{
+display:none;
+margin-top:20px;
+}
+
+#target a{
+display:block;
+padding:14px;
+background:linear-gradient(#00e081,#00c26e);
+border-radius:10px;
+color:white;
+text-decoration:none;
+font-size:18px;
+box-shadow:0 8px 20px rgba(0,0,0,0.6);
+transition:all 0.2s ease;
+}
+
+#target a:hover{
+transform:translateY(-3px);
+}
+
+#target a:active{
+transform:scale(0.95);
+box-shadow:0 4px 10px rgba(0,0,0,0.6);
+}
+
+/* Bubble */
 
 .bubble{
-position:absolute;
+position:fixed;
 border-radius:50%;
-background:rgba(0,0,0,0.08);
-animation:float 18s infinite linear;
+background:rgba(255,255,255,0.15);
+animation:float 10s linear infinite;
 }
 
 @keyframes float{
 
 0%{
-transform:translateY(100vh);
-}
-
-100%{
-transform:translateY(-20vh);
-}
-
-}
-
-/* rain line */
-
-.line{
-
-position:absolute;
-width:2px;
-height:40px;
-
-background:rgba(0,0,0,0.25);
-
-transform:rotate(20deg);
-
-animation:fall 4s linear infinite;
-
-}
-
-@keyframes fall{
-
-0%{
-transform:translateY(-50px) rotate(20deg);
+transform:translateY(30vh) scale(0.5);
 opacity:0;
 }
 
@@ -69,25 +173,69 @@ opacity:1;
 }
 
 100%{
-transform:translateY(110vh) rotate(20deg);
+transform:translateY(-20vh) scale(1);
 opacity:0;
 }
 
 }
 
+/* เส้นตก */
+
+.line{
+position:fixed;
+width:2px;
+height:40px;
+background:rgba(255,255,255,0.4);
+animation:fall 4s linear infinite;
+}
+
+@keyframes fall{
+0%{
+transform:translateY(-50px);
+opacity:0;
+}
+20%{
+opacity:1;
+}
+100%{
+transform:translateY(110vh);
+opacity:0;
+}
+}
+
 </style>
+
 </head>
 
 <body>
 
+<div class="container">
+
+<div id="status">Click Get Link</div>
+
+<div id="progress">
+<div id="bar"></div>
+</div>
+
+<button onclick="openAds()">🚀 Get Link</button>
+
+<div id="target">
+<a href="https://sites.google.com/view/realraxsc/home-%E0%B8%AB%E0%B8%99%E0%B8%B2%E0%B9%80%E0%B8%A7%E0%B9%87%E0%B8%9A%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%81" target="_blank">
+➡ Go To Website
+</a>
+</div>
+
+</div>
+
 <script>
 
-/* bubble generator */
+let adOpened=false;
+
+/* Bubble */
 
 function createBubble(){
 
 let b=document.createElement("div");
-
 b.className="bubble";
 
 let size=Math.random()*120+40;
@@ -97,36 +245,106 @@ b.style.height=size+"px";
 
 b.style.left=Math.random()*100+"%";
 
-b.style.animationDuration=(Math.random()*10+15)+"s";
-
 document.body.appendChild(b);
 
-setTimeout(()=>{b.remove()},20000);
+setTimeout(()=>{b.remove()},10000);
 
 }
 
-setInterval(createBubble,800);
+setInterval(createBubble,600);
 
 
-/* rain generator */
+/* เส้นตก */
 
 function createLine(){
 
 let l=document.createElement("div");
-
 l.className="line";
 
 l.style.left=Math.random()*100+"%";
 
-l.style.animationDuration=(Math.random()*2+3)+"s";
-
 document.body.appendChild(l);
 
-setTimeout(()=>{l.remove()},5000);
+setTimeout(()=>{l.remove()},4000);
 
 }
 
-setInterval(createLine,500);
+setInterval(createLine,600);
+
+
+/* เปิด Ads */
+
+function openAds(){
+
+window.open("https://omg10.com/4/10697514","_blank");
+
+adOpened=true;
+
+document.getElementById("status").innerText="Return to this page...";
+
+}
+
+
+/* กลับจาก Ads */
+
+document.addEventListener("visibilitychange",function(){
+
+if(!document.hidden && adOpened){
+
+startCountdown();
+
+adOpened=false;
+
+}
+
+});
+
+
+/* Smooth countdown */
+
+function startCountdown(){
+
+let duration=5000;
+let start=Date.now();
+
+let status=document.getElementById("status");
+let progress=document.getElementById("progress");
+let bar=document.getElementById("bar");
+
+progress.style.display="block";
+
+function update(){
+
+let now=Date.now();
+let elapsed=now-start;
+
+let percent=Math.min(elapsed/duration*100,100);
+
+bar.style.width=percent+"%";
+
+let seconds=Math.ceil((duration-elapsed)/1000);
+
+status.innerText="Please wait "+seconds+"s";
+
+if(percent<100){
+
+requestAnimationFrame(update);
+
+}else{
+
+status.innerText="Link Ready";
+
+progress.style.display="none";
+
+document.getElementById("target").style.display="block";
+
+}
+
+}
+
+update();
+
+}
 
 </script>
 
