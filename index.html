@@ -42,7 +42,7 @@ margin-bottom:20px;
 font-size:18px;
 }
 
-/* ปุ่ม */
+/* ปุ่ม Get Link */
 
 button{
 width:100%;
@@ -54,16 +54,16 @@ background:linear-gradient(#ff4b4b,#ff0000);
 color:white;
 cursor:pointer;
 box-shadow:0 10px 25px rgba(0,0,0,0.6);
-transition:0.2s;
+transition:all 0.2s ease;
 }
 
 button:hover{
-transform:scale(1.04);
+transform:translateY(-3px);
 }
 
-button:disabled{
-background:#444;
-cursor:not-allowed;
+button:active{
+transform:scale(0.96);
+box-shadow:0 4px 10px rgba(0,0,0,0.6);
 }
 
 /* ปุ่มลิงก์ปลายทาง */
@@ -76,11 +76,22 @@ margin-top:20px;
 #target a{
 display:block;
 padding:14px;
-background:#00c26e;
+background:linear-gradient(#00e081,#00c26e);
 border-radius:10px;
 color:white;
 text-decoration:none;
 font-size:18px;
+box-shadow:0 8px 20px rgba(0,0,0,0.6);
+transition:all 0.2s ease;
+}
+
+#target a:hover{
+transform:translateY(-3px);
+}
+
+#target a:active{
+transform:scale(0.95);
+box-shadow:0 4px 10px rgba(0,0,0,0.6);
 }
 
 /* หิมะ */
@@ -124,7 +135,7 @@ transform:translateY(110vh);
 
 let adOpened=false;
 
-/* สร้างหิมะ */
+/* หิมะ */
 
 function createSnow(){
 
@@ -179,7 +190,7 @@ adOpened=false;
 });
 
 
-/* เริ่มนับเวลา */
+/* นับเวลา */
 
 function startCountdown(){
 
