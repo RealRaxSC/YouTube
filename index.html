@@ -50,47 +50,40 @@ margin-bottom:15px;
 font-size:18px;
 }
 
-/* Progress bar */
+/* GAME STYLE PROGRESS BAR */
 
 #progress{
 width:100%;
-height:10px;
-background:rgba(255,255,255,0.15);
-border-radius:30px;
+height:16px;
+background:#0a0a0a;
+border-radius:8px;
 overflow:hidden;
 margin-bottom:20px;
 display:none;
+
+box-shadow:
+inset 0 0 8px rgba(0,0,0,0.8),
+0 0 5px rgba(0,0,0,0.5);
 }
 
 #bar{
 height:100%;
 width:0%;
+
 background:linear-gradient(
 90deg,
-#00ffb3,
+#00ff9d,
 #00e081,
-#00ffb3
+#00ff9d
 );
 
-background-size:200% 100%;
+border-radius:8px;
 
-animation:shine 2s linear infinite;
+box-shadow:
+0 0 10px rgba(0,255,157,0.8),
+inset 0 0 5px rgba(255,255,255,0.5);
 
-transition:width 0.1s linear;
-
-box-shadow:0 0 10px rgba(0,255,179,0.6);
-}
-
-@keyframes shine{
-
-0%{
-background-position:200% 0;
-}
-
-100%{
-background-position:-200% 0;
-}
-
+transition:width 0.05s linear;
 }
 
 /* ปุ่ม */
