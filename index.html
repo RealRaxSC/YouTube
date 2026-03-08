@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,7 +5,6 @@
 <title>Get Link</title>
 
 <style>
-
 body{
 margin:0;
 height:100vh;
@@ -15,22 +13,27 @@ justify-content:center;
 align-items:center;
 flex-direction:column;
 font-family:Arial;
-background:linear-gradient(#0f172a,#1e293b);
+background:#000;
 color:white;
 overflow:hidden;
+}
+
+#status{
+margin-bottom:20px;
+font-size:18px;
 }
 
 /* ปุ่ม */
 
 .btn{
-padding:16px 40px;
+padding:16px 45px;
 font-size:20px;
 border:none;
 border-radius:10px;
-background:linear-gradient(180deg,#ff4b4b,#ff0000);
+background:linear-gradient(#ff3c3c,#ff0000);
 color:white;
 cursor:pointer;
-box-shadow:0 10px 20px rgba(0,0,0,0.4);
+box-shadow:0 8px 20px rgba(0,0,0,0.6);
 transition:0.2s;
 }
 
@@ -39,84 +42,55 @@ transform:scale(1.05);
 }
 
 .btn:disabled{
-background:#555;
+background:#444;
 cursor:not-allowed;
-}
-
-#status{
-margin-bottom:20px;
-font-size:18px;
-opacity:0.9;
 }
 
 /* หิมะ */
 
-.snow{
+.snowflake{
 position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
-}
-
-.snow span{
-position:absolute;
 top:-10px;
-background:white;
-border-radius:50%;
+color:white;
+font-size:10px;
 opacity:0.8;
 animation:fall linear infinite;
 }
 
 @keyframes fall{
 to{
-transform:translateY(100vh);
+transform:translateY(110vh);
 }
 }
-
 </style>
-
 </head>
 
 <body>
 
-<p id="status">Ready</p>
+<div id="status">Ready</div>
 
-<button id="btn" class="btn" onclick="unlock()">
-🚀 Get Link
-</button>
-
-<div class="snow" id="snow"></div>
+<button id="btn" class="btn" onclick="unlock()">🚀 Get Link</button>
 
 <script>
 
 /* สร้างหิมะ */
 
-const snow=document.getElementById("snow");
-
-for(let i=0;i<60;i++){
-
-let flake=document.createElement("span");
-
-let size=Math.random()*5+2;
-
-flake.style.width=size+"px";
-flake.style.height=size+"px";
-flake.style.left=Math.random()*100+"%";
-flake.style.animationDuration=(Math.random()*5+5)+"s";
-flake.style.animationDelay=Math.random()*5+"s";
-
-snow.appendChild(flake);
-
+for(let i=0;i<50;i++){
+let snow=document.createElement("div");
+snow.className="snowflake";
+snow.innerHTML="•";
+snow.style.left=Math.random()*100+"%";
+snow.style.animationDuration=(Math.random()*5+5)+"s";
+snow.style.fontSize=(Math.random()*6+4)+"px";
+document.body.appendChild(snow);
 }
 
 /* ระบบปุ่ม */
 
 function unlock(){
 
-const btn=document.getElementById("btn");
-const status=document.getElementById("status");
+let btn=document.getElementById("btn");
+let status=document.getElementById("status");
 
 btn.disabled=true;
 
@@ -126,7 +100,7 @@ let time=5;
 
 status.innerText="Please wait "+time+"s";
 
-let timer=setInterval(()=>{
+let timer=setInterval(function(){
 
 time--;
 
@@ -148,4 +122,3 @@ window.location.href="https://sites.google.com/view/realraxsc/home-%E0%B8%AB%E0%
 
 </body>
 </html>
-```
