@@ -20,10 +20,21 @@ display:flex;
 justify-content:center;
 align-items:center;
 font-family:Arial, sans-serif;
-background:#000;
 color:#fff;
 overflow:hidden;
 text-align:center;
+
+/* พื้นหลัง Gradient เคลื่อนไหว */
+
+background:linear-gradient(120deg,#052a47,#00a8a8,#0d6efd);
+background-size:300% 300%;
+animation:bgmove 12s ease infinite;
+}
+
+@keyframes bgmove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 
 /* กล่องกลาง */
@@ -32,9 +43,10 @@ text-align:center;
 width:90%;
 max-width:420px;
 padding:30px;
-background:rgba(0,0,0,0.6);
+background:rgba(0,0,0,0.55);
 border-radius:15px;
-box-shadow:0 0 20px rgba(0,0,0,0.7);
+backdrop-filter:blur(6px);
+box-shadow:0 0 25px rgba(0,0,0,0.6);
 }
 
 #status{
@@ -66,7 +78,7 @@ transform:scale(0.96);
 box-shadow:0 4px 10px rgba(0,0,0,0.6);
 }
 
-/* ปุ่มลิงก์ปลายทาง */
+/* ปุ่มปลายทาง */
 
 #target{
 display:none;
@@ -94,20 +106,50 @@ transform:scale(0.95);
 box-shadow:0 4px 10px rgba(0,0,0,0.6);
 }
 
-/* หิมะ */
+/* Bubble */
 
-.snow{
+.bubble{
 position:fixed;
-top:-10px;
-color:white;
-opacity:0.9;
-pointer-events:none;
-animation:fall linear forwards;
+border-radius:50%;
+background:rgba(255,255,255,0.15);
+animation:float 18s linear infinite;
+}
+
+@keyframes float{
+0%{
+transform:translateY(100vh) scale(0.5);
+opacity:0;
+}
+30%{
+opacity:1;
+}
+100%{
+transform:translateY(-20vh) scale(1);
+opacity:0;
+}
+}
+
+/* เส้นตก */
+
+.line{
+position:fixed;
+width:2px;
+height:40px;
+background:rgba(255,255,255,0.4);
+animation:fall 4s linear infinite;
 }
 
 @keyframes fall{
-to{
+0%{
+transform:translateY(-50px);
+opacity:0;
+}
+20%{
+opacity:1;
+}
+100%{
 transform:translateY(110vh);
+opacity:0;
 }
 }
 
@@ -135,31 +177,45 @@ transform:translateY(110vh);
 
 let adOpened=false;
 
-/* หิมะ */
+/* Bubble */
 
-function createSnow(){
+function createBubble(){
 
-let s=document.createElement("div");
+let b=document.createElement("div");
+b.className="bubble";
 
-s.className="snow";
-s.innerHTML="•";
+let size=Math.random()*120+40;
 
-s.style.left=Math.random()*100+"%";
-s.style.fontSize=(Math.random()*6+4)+"px";
+b.style.width=size+"px";
+b.style.height=size+"px";
 
-let duration=Math.random()*5+5;
+b.style.left=Math.random()*100+"%";
 
-s.style.animationDuration=duration+"s";
+document.body.appendChild(b);
 
-document.body.appendChild(s);
-
-setTimeout(function(){
-s.remove();
-},duration*1000);
+setTimeout(()=>{b.remove()},18000);
 
 }
 
-setInterval(createSnow,120);
+setInterval(createBubble,1200);
+
+
+/* เส้นตก */
+
+function createLine(){
+
+let l=document.createElement("div");
+l.className="line";
+
+l.style.left=Math.random()*100+"%";
+
+document.body.appendChild(l);
+
+setTimeout(()=>{l.remove()},4000);
+
+}
+
+setInterval(createLine,600);
 
 
 /* เปิด Ads */
@@ -175,7 +231,7 @@ document.getElementById("status").innerText="Return to this page...";
 }
 
 
-/* ตรวจว่าผู้ใช้กลับมา */
+/* กลับมาจาก Ads */
 
 document.addEventListener("visibilitychange",function(){
 
