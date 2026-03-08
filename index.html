@@ -1,21 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Get Link</title>
 
 <style>
+
+*{
+box-sizing:border-box;
+}
+
 body{
 margin:0;
-height:100vh;
+min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-flex-direction:column;
 font-family:Arial, sans-serif;
 background:#000;
 color:#fff;
 overflow:hidden;
+text-align:center;
+}
+
+/* กล่องกลาง */
+
+.container{
+width:90%;
+max-width:420px;
+padding:30px;
+background:rgba(0,0,0,0.6);
+border-radius:15px;
+box-shadow:0 0 20px rgba(0,0,0,0.7);
 }
 
 #status{
@@ -23,9 +42,12 @@ margin-bottom:20px;
 font-size:18px;
 }
 
+/* ปุ่ม */
+
 button{
-padding:16px 45px;
-font-size:20px;
+width:100%;
+padding:16px;
+font-size:18px;
 border:none;
 border-radius:12px;
 background:linear-gradient(#ff4b4b,#ff0000);
@@ -36,7 +58,7 @@ transition:0.2s;
 }
 
 button:hover{
-transform:scale(1.05);
+transform:scale(1.04);
 }
 
 button:disabled{
@@ -44,15 +66,21 @@ background:#444;
 cursor:not-allowed;
 }
 
+/* ปุ่มลิงก์ปลายทาง */
+
 #target{
 display:none;
 margin-top:20px;
 }
 
 #target a{
-color:#00ff9c;
-font-size:18px;
+display:block;
+padding:14px;
+background:#00c26e;
+border-radius:10px;
+color:white;
 text-decoration:none;
+font-size:18px;
 }
 
 /* หิมะ */
@@ -67,17 +95,22 @@ animation:fall linear forwards;
 }
 
 @keyframes fall{
-to{transform:translateY(110vh);}
+to{
+transform:translateY(110vh);
 }
+}
+
 </style>
 
 </head>
 
 <body>
 
+<div class="container">
+
 <div id="status">Click Get Link</div>
 
-<button id="btn" onclick="openAds()">🚀 Get Link</button>
+<button onclick="openAds()">🚀 Get Link</button>
 
 <div id="target">
 <a href="https://sites.google.com/view/realraxsc/home-%E0%B8%AB%E0%B8%99%E0%B8%B2%E0%B9%80%E0%B8%A7%E0%B9%87%E0%B8%9A%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%81" target="_blank">
@@ -85,20 +118,26 @@ to{transform:translateY(110vh);}
 </a>
 </div>
 
+</div>
+
 <script>
 
 let adOpened=false;
 
-/* หิมะตกต่อเนื่อง */
+/* สร้างหิมะ */
 
 function createSnow(){
+
 let s=document.createElement("div");
+
 s.className="snow";
 s.innerHTML="•";
+
 s.style.left=Math.random()*100+"%";
 s.style.fontSize=(Math.random()*6+4)+"px";
 
 let duration=Math.random()*5+5;
+
 s.style.animationDuration=duration+"s";
 
 document.body.appendChild(s);
@@ -106,6 +145,7 @@ document.body.appendChild(s);
 setTimeout(function(){
 s.remove();
 },duration*1000);
+
 }
 
 setInterval(createSnow,120);
@@ -124,7 +164,7 @@ document.getElementById("status").innerText="Return to this page...";
 }
 
 
-/* ตรวจว่าผู้ใช้กลับมาหน้าเว็บ */
+/* ตรวจว่าผู้ใช้กลับมา */
 
 document.addEventListener("visibilitychange",function(){
 
@@ -144,6 +184,7 @@ adOpened=false;
 function startCountdown(){
 
 let time=5;
+
 let status=document.getElementById("status");
 
 status.innerText="Please wait "+time+"s";
