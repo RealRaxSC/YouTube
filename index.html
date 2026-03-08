@@ -1,10 +1,8 @@
-```html
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Get Link</title>
-
 <style>
 body{
 margin:0;
@@ -13,9 +11,9 @@ display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-font-family:Arial;
+font-family:Arial, sans-serif;
 background:#000;
-color:white;
+color:#fff;
 overflow:hidden;
 }
 
@@ -24,32 +22,28 @@ margin-bottom:20px;
 font-size:18px;
 }
 
-/* ปุ่ม */
-
-.btn{
+button{
 padding:16px 45px;
 font-size:20px;
 border:none;
-border-radius:10px;
-background:linear-gradient(#ff3c3c,#ff0000);
+border-radius:12px;
+background:linear-gradient(#ff4b4b,#ff0000);
 color:white;
 cursor:pointer;
-box-shadow:0 8px 20px rgba(0,0,0,0.6);
+box-shadow:0 10px 25px rgba(0,0,0,0.6);
 transition:0.2s;
 }
 
-.btn:hover{
+button:hover{
 transform:scale(1.05);
 }
 
-.btn:disabled{
+button:disabled{
 background:#444;
 cursor:not-allowed;
 }
 
-/* หิมะ */
-
-.snowflake{
+.snow{
 position:fixed;
 top:-10px;
 color:white;
@@ -59,9 +53,7 @@ animation:fall linear forwards;
 }
 
 @keyframes fall{
-to{
-transform:translateY(110vh);
-}
+to{transform:translateY(110vh);}
 }
 </style>
 </head>
@@ -70,44 +62,28 @@ transform:translateY(110vh);
 
 <div id="status">Ready</div>
 
-<button id="btn" class="btn" onclick="unlock()">🚀 Get Link</button>
+<button id="btn" onclick="unlock()">🚀 Get Link</button>
 
 <script>
 
-/* หิมะต่อเนื่อง */
-
 function createSnow(){
-
-let snow=document.createElement("div");
-
-snow.className="snowflake";
-snow.innerHTML="•";
-
-snow.style.left=Math.random()*100+"%";
-snow.style.fontSize=(Math.random()*6+4)+"px";
+let s=document.createElement("div");
+s.className="snow";
+s.textContent="•";
+s.style.left=Math.random()*100+"%";
+s.style.fontSize=(Math.random()*6+4)+"px";
 
 let duration=Math.random()*5+5;
+s.style.animationDuration=duration+"s";
 
-snow.style.animationDuration=duration+"s";
+document.body.appendChild(s);
 
-document.body.appendChild(snow);
-
-/* ลบเมื่อหลุดจอ */
-
-setTimeout(()=>{
-snow.remove();
-},duration*1000);
-
+setTimeout(()=>{s.remove();},duration*1000);
 }
 
-/* สร้างหิมะทุก 150ms */
-
-setInterval(createSnow,150);
-
-
+setInterval(createSnow,120);
 
 function unlock(){
-
 let btn=document.getElementById("btn");
 let status=document.getElementById("status");
 
@@ -116,25 +92,18 @@ btn.disabled=true;
 window.open("https://omg10.com/4/10697514","_blank");
 
 let time=5;
-
-status.innerText="Please wait "+time+"s";
+status.textContent="Please wait "+time+"s";
 
 let timer=setInterval(function(){
-
 time--;
-
-status.innerText="Please wait "+time+"s";
+status.textContent="Please wait "+time+"s";
 
 if(time<=0){
-
 clearInterval(timer);
-
 window.location.href="https://sites.google.com/view/realraxsc/home-%E0%B8%AB%E0%B8%99%E0%B8%B2%E0%B9%80%E0%B8%A7%E0%B9%87%E0%B8%9A%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%81";
-
 }
 
 },1000);
-
 }
 
 </script>
