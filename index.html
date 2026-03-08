@@ -21,13 +21,6 @@ border-radius:8px;
 background:linear-gradient(45deg,#ff0000,#ff5050);
 color:white;
 cursor:pointer;
-box-shadow:0 6px 20px rgba(0,0,0,0.4);
-transition:all 0.2s ease;
-}
-
-.unlock-btn:hover{
-transform:translateY(-2px);
-background:linear-gradient(45deg,#ff3030,#ff7070);
 }
 
 .unlock-btn:disabled{
@@ -46,38 +39,36 @@ opacity:0.8;
 
 const cooldown = 5;
 
-function updateCooldown(){
-
-let button = document.getElementById("unlockBtn");
-let timer = document.getElementById("timer");
+function check(){
 
 let last = localStorage.getItem("unlockTime");
+let btn = document.getElementById("btn");
+let timer = document.getElementById("timer");
 
 if(!last){
-button.disabled=false;
+btn.disabled=false;
 timer.innerText="Ready";
 return;
 }
 
-let passed = Math.floor((Date.now() - last)/1000);
-let left = cooldown - passed;
+let diff = Math.floor((Date.now() - last)/1000);
+let left = cooldown - diff;
 
 if(left <= 0){
-button.disabled=false;
+btn.disabled=false;
 timer.innerText="Ready";
-return;
-}
+}else{
 
-button.disabled=true;
+btn.disabled=true;
 timer.innerText="Cooldown: "+left+"s";
 
-let interval = setInterval(function(){
+let interval=setInterval(()=>{
 
 left--;
 
-if(left <= 0){
+if(left<=0){
 clearInterval(interval);
-button.disabled=false;
+btn.disabled=false;
 timer.innerText="Ready";
 }else{
 timer.innerText="Cooldown: "+left+"s";
@@ -87,16 +78,21 @@ timer.innerText="Cooldown: "+left+"s";
 
 }
 
-function openAd(){
+}
+
+function unlock(){
 
 localStorage.setItem("unlockTime",Date.now());
 
 window.open("https://omg10.com/4/10697514","_blank");
 
+setTimeout(()=>{
+location.reload();
+},300);
+
 }
 
-window.addEventListener("load",updateCooldown);
-window.addEventListener("pageshow",updateCooldown);
+window.onload = check;
 
 </script>
 
@@ -108,7 +104,7 @@ window.addEventListener("pageshow",updateCooldown);
 
 <div id="timer" class="timer">Checking...</div>
 
-<button id="unlockBtn" class="unlock-btn" onclick="openAd()">
+<button id="btn" class="unlock-btn" onclick="unlock()">
 🚀 Unlock Link
 </button>
 
