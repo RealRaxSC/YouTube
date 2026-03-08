@@ -14,7 +14,7 @@ align-items:center;
 flex-direction:column;
 font-family:Arial;
 background:#000;
-color:#fff;
+color:white;
 overflow:hidden;
 }
 
@@ -75,17 +75,19 @@ to{transform:translateY(110vh);}
 
 <body>
 
-<div id="status">Ready</div>
+<div id="status">Click Get Link</div>
 
 <button id="btn" onclick="unlock()">🚀 Get Link</button>
 
 <div id="target">
-<a href="https://sites.google.com/view/realraxsc/home-%E0%B8%AB%E0%B8%99%E0%B8%B2%E0%B9%80%E0%B8%A7%E0%B8%9A%E0%B8%AB%E0%B8%A5%E0%B8%81?fbclid=PARlRTSAQaLSxleHRuA2FlbQIxMABzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAad6v8PNTVmQrVcuuZcp-Hm7QUnRwqFHavk9dpjN48sSp8Lxdlu3vz2-qjfgKQ_aem_5xRiwHWZma57UewmqJWHPA" target="_blank">
+<a href="https://sites.google.com/view/realraxsc/home-%E0%B8%AB%E0%B8%99%E0%B8%B2%E0%B9%80%E0%B8%A7%E0%B9%87%E0%B8%9A%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%81" target="_blank">
 ➡ Go To Website
 </a>
 </div>
 
 <script>
+
+let adClicked = false;
 
 /* หิมะ */
 
@@ -107,35 +109,56 @@ setTimeout(()=>{s.remove();},duration*1000);
 setInterval(snow,120);
 
 
-/* ระบบปุ่ม */
+/* กดปุ่ม */
 
 function unlock(){
 
-let btn=document.getElementById("btn");
-let status=document.getElementById("status");
-let target=document.getElementById("target");
-
-btn.disabled=true;
-
 window.open("https://omg10.com/4/10697514","_blank");
 
-let time=5;
+adClicked = true;
 
-status.innerText="Please wait "+time+"s";
+document.getElementById("status").innerText = "Return to this page...";
 
-let timer=setInterval(function(){
+}
+
+
+/* ตรวจว่ากลับมาที่หน้าเว็บ */
+
+document.addEventListener("visibilitychange", function(){
+
+if(!document.hidden && adClicked){
+
+startCountdown();
+
+adClicked = false;
+
+}
+
+});
+
+
+/* เริ่มนับเวลา */
+
+function startCountdown(){
+
+let time = 5;
+let status = document.getElementById("status");
+
+status.innerText = "Please wait " + time + "s";
+
+let timer = setInterval(function(){
 
 time--;
 
-status.innerText="Please wait "+time+"s";
+status.innerText = "Please wait " + time + "s";
 
-if(time<=0){
+if(time <= 0){
 
 clearInterval(timer);
 
-status.innerText="Link Ready";
+status.innerText = "Link Ready";
 
-target.style.display="block";
+document.getElementById("target").style.display="block";
 
 }
 
