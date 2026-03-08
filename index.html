@@ -12,9 +12,9 @@ display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-font-family:Arial;
+font-family:Arial, sans-serif;
 background:#000;
-color:white;
+color:#fff;
 overflow:hidden;
 }
 
@@ -69,29 +69,29 @@ animation:fall linear forwards;
 @keyframes fall{
 to{transform:translateY(110vh);}
 }
-
 </style>
+
 </head>
 
 <body>
 
 <div id="status">Click Get Link</div>
 
-<button id="btn" onclick="unlock()">🚀 Get Link</button>
+<button id="btn" onclick="openAds()">🚀 Get Link</button>
 
 <div id="target">
-<a href="https://linkunlocker.com/delta-x-27102-OX6oY" target="_blank">
+<a href="https://sites.google.com/view/realraxsc/home-%E0%B8%AB%E0%B8%99%E0%B8%B2%E0%B9%80%E0%B8%A7%E0%B9%87%E0%B8%9A%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%81" target="_blank">
 ➡ Go To Website
 </a>
 </div>
 
 <script>
 
-let adClicked = false;
+let adOpened=false;
 
-/* หิมะ */
+/* หิมะตกต่อเนื่อง */
 
-function snow(){
+function createSnow(){
 let s=document.createElement("div");
 s.className="snow";
 s.innerHTML="•";
@@ -103,34 +103,36 @@ s.style.animationDuration=duration+"s";
 
 document.body.appendChild(s);
 
-setTimeout(()=>{s.remove();},duration*1000);
+setTimeout(function(){
+s.remove();
+},duration*1000);
 }
 
-setInterval(snow,120);
+setInterval(createSnow,120);
 
 
-/* กดปุ่ม */
+/* เปิด Ads */
 
-function unlock(){
+function openAds(){
 
 window.open("https://omg10.com/4/10697514","_blank");
 
-adClicked = true;
+adOpened=true;
 
-document.getElementById("status").innerText = "Return to this page...";
+document.getElementById("status").innerText="Return to this page...";
 
 }
 
 
-/* ตรวจว่ากลับมาที่หน้าเว็บ */
+/* ตรวจว่าผู้ใช้กลับมาหน้าเว็บ */
 
-document.addEventListener("visibilitychange", function(){
+document.addEventListener("visibilitychange",function(){
 
-if(!document.hidden && adClicked){
+if(!document.hidden && adOpened){
 
 startCountdown();
 
-adClicked = false;
+adOpened=false;
 
 }
 
@@ -141,22 +143,22 @@ adClicked = false;
 
 function startCountdown(){
 
-let time = 5;
-let status = document.getElementById("status");
+let time=5;
+let status=document.getElementById("status");
 
-status.innerText = "Please wait " + time + "s";
+status.innerText="Please wait "+time+"s";
 
-let timer = setInterval(function(){
+let timer=setInterval(function(){
 
 time--;
 
-status.innerText = "Please wait " + time + "s";
+status.innerText="Please wait "+time+"s";
 
-if(time <= 0){
+if(time<=0){
 
 clearInterval(timer);
 
-status.innerText = "Link Ready";
+status.innerText="Link Ready";
 
 document.getElementById("target").style.display="block";
 
