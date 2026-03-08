@@ -50,43 +50,59 @@ margin-bottom:15px;
 font-size:18px;
 }
 
-/* GAME STYLE PROGRESS BAR */
+/* Progress */
 
 #progress{
 width:100%;
-height:16px;
-background:#0a0a0a;
-border-radius:8px;
+height:18px;
+background:#111;
+border-radius:10px;
 overflow:hidden;
 margin-bottom:20px;
 display:none;
-
-box-shadow:
-inset 0 0 8px rgba(0,0,0,0.8),
-0 0 5px rgba(0,0,0,0.5);
 }
 
 #bar{
+
 height:100%;
 width:0%;
 
+/* สีทอง */
+
 background:linear-gradient(
 90deg,
-#00ff9d,
-#00e081,
-#00ff9d
+#ffd700,
+#fff3a0,
+#ffd700,
+#ffc400,
+#ffd700
 );
 
-border-radius:8px;
+background-size:300% 100%;
+
+animation:goldMove 2s linear infinite;
 
 box-shadow:
-0 0 10px rgba(0,255,157,0.8),
-inset 0 0 5px rgba(255,255,255,0.5);
+0 0 10px rgba(255,215,0,0.8),
+0 0 20px rgba(255,215,0,0.4);
 
 transition:width 0.05s linear;
+
 }
 
-/* ปุ่ม */
+@keyframes goldMove{
+
+0%{
+background-position:0% 0%;
+}
+
+100%{
+background-position:300% 0%;
+}
+
+}
+
+/* Button */
 
 button{
 width:100%;
@@ -110,7 +126,7 @@ transform:scale(0.96);
 box-shadow:0 4px 10px rgba(0,0,0,0.6);
 }
 
-/* ปุ่มปลายทาง */
+/* Target */
 
 #target{
 display:none;
@@ -135,7 +151,6 @@ transform:translateY(-3px);
 
 #target a:active{
 transform:scale(0.95);
-box-shadow:0 4px 10px rgba(0,0,0,0.6);
 }
 
 /* Bubble */
@@ -165,7 +180,7 @@ opacity:0;
 
 }
 
-/* เส้นตก */
+/* Line */
 
 .line{
 position:fixed;
@@ -215,6 +230,17 @@ opacity:0;
 
 <script>
 
+/* รีเซ็ตเวลารีเฟรชมือถือ */
+
+window.onload=function(){
+
+document.getElementById("progress").style.display="none";
+document.getElementById("target").style.display="none";
+document.getElementById("bar").style.width="0%";
+document.getElementById("status").innerText="Click Get Link";
+
+}
+
 let adOpened=false;
 
 /* Bubble */
@@ -239,8 +265,7 @@ setTimeout(()=>{b.remove()},10000);
 
 setInterval(createBubble,600);
 
-
-/* เส้นตก */
+/* Line */
 
 function createLine(){
 
@@ -257,8 +282,7 @@ setTimeout(()=>{l.remove()},4000);
 
 setInterval(createLine,600);
 
-
-/* เปิด Ads */
+/* Ads */
 
 function openAds(){
 
@@ -270,23 +294,20 @@ document.getElementById("status").innerText="Return to this page...";
 
 }
 
-
-/* กลับจาก Ads */
+/* กลับหน้า */
 
 document.addEventListener("visibilitychange",function(){
 
 if(!document.hidden && adOpened){
 
 startCountdown();
-
 adOpened=false;
 
 }
 
 });
 
-
-/* Smooth countdown */
+/* Countdown */
 
 function startCountdown(){
 
