@@ -9,7 +9,9 @@
 
 <style>
 
-*{box-sizing:border-box;}
+*{
+box-sizing:border-box;
+}
 
 body{
 margin:0;
@@ -68,10 +70,21 @@ display:none;
 #bar{
 height:100%;
 width:0%;
-background:linear-gradient(90deg,#ff4b4b,#ff0000,#ff4b4b);
+
+background:linear-gradient(
+90deg,
+#ff4b4b,
+#ff0000,
+#ff4b4b
+);
+
 background-size:200% 100%;
 animation:shine 1.5s linear infinite;
 transition:width 0.1s linear;
+
+box-shadow:
+0 0 10px rgba(255,0,0,0.8),
+0 0 20px rgba(255,0,0,0.5);
 }
 
 @keyframes shine{
@@ -88,6 +101,7 @@ border-radius:12px;
 background:linear-gradient(#ff4b4b,#ff0000);
 color:white;
 cursor:pointer;
+box-shadow:0 10px 25px rgba(0,0,0,0.6);
 }
 
 #target{
@@ -103,6 +117,7 @@ border-radius:10px;
 color:black;
 text-decoration:none;
 font-size:18px;
+box-shadow:0 8px 20px rgba(0,0,0,0.6);
 }
 
 .bubble{
@@ -161,26 +176,38 @@ animation:fall 4s linear infinite;
 let adOpened=false
 let leftPage=false
 let adStart=0
+let countdownStarted=false
 
 function createBubble(){
+
 let b=document.createElement("div")
 b.className="bubble"
+
 let size=Math.random()*120+40
+
 b.style.width=size+"px"
 b.style.height=size+"px"
 b.style.left=Math.random()*100+"%"
+
 document.body.appendChild(b)
-setTimeout(()=>b.remove(),10000)
+
+setTimeout(()=>{b.remove()},10000)
+
 }
 
 setInterval(createBubble,600)
 
 function createLine(){
+
 let l=document.createElement("div")
 l.className="line"
+
 l.style.left=Math.random()*100+"%"
+
 document.body.appendChild(l)
-setTimeout(()=>l.remove(),4000)
+
+setTimeout(()=>{l.remove()},4000)
+
 }
 
 setInterval(createLine,600)
@@ -196,6 +223,8 @@ document.getElementById("status").innerText="Return to this page..."
 
 }
 
+/* ตรวจจับออกจากหน้า */
+
 document.addEventListener("visibilitychange",function(){
 
 if(document.hidden && adOpened){
@@ -204,7 +233,9 @@ leftPage=true
 
 }
 
-if(!document.hidden && adOpened && leftPage){
+/* กลับมาหน้าเว็บ */
+
+if(!document.hidden && adOpened && leftPage && !countdownStarted){
 
 let stayTime=(Date.now()-adStart)/1000
 
@@ -220,14 +251,13 @@ return
 
 startCountdown()
 
-adOpened=false
-leftPage=false
-
 }
 
 })
 
 function startCountdown(){
+
+countdownStarted=true
 
 let duration=5000
 let start=Date.now()
@@ -259,8 +289,14 @@ requestAnimationFrame(update)
 }else{
 
 status.innerText="Link Ready"
+
 progress.style.display="none"
+
 document.getElementById("target").style.display="block"
+
+/* สร้าง token สำหรับลิงก์ปลายทาง */
+
+sessionStorage.setItem("gateway_pass","true")
 
 }
 
