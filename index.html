@@ -90,6 +90,11 @@ cursor:pointer;
 animation:shine 2s linear infinite;
 }
 
+button:hover{
+transform:scale(1.05);
+box-shadow:0 0 20px rgba(255,0,0,0.7);
+}
+
 .page{display:none}
 .page.active{display:block}
 
@@ -116,6 +121,33 @@ transition:0.4s;
 }
 
 .toast.show{top:30px}
+
+.bubble{
+position:fixed;
+border-radius:50%;
+background:rgba(255,255,255,0.15);
+animation:float 10s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(30vh) scale(0.5);opacity:0}
+20%{opacity:1}
+100%{transform:translateY(-20vh) scale(1);opacity:0}
+}
+
+.line{
+position:fixed;
+width:2px;
+height:40px;
+background:rgba(255,255,255,0.4);
+animation:fall 4s linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-50px);opacity:0}
+20%{opacity:1}
+100%{transform:translateY(110vh);opacity:0}
+}
 
 </style>
 </head>
@@ -160,7 +192,7 @@ let adStart=0
 let countdownStarted=false
 let mustLeave=false
 
-let ads=[
+const ads=[
 "https://omg10.com/4/10700946",
 "https://omg10.com/4/10697514",
 "https://omg10.com/4/10703023",
@@ -168,57 +200,15 @@ let ads=[
 "https://omg10.com/4/10703028"
 ]
 
-let shuffledAds=[]
-let adIndex=0
-
-function shuffleAds(){
-
-shuffledAds=[...ads]
-
-for(let i=shuffledAds.length-1;i>0;i--){
-
-let j=Math.floor(Math.random()*(i+1))
-let temp=shuffledAds[i]
-shuffledAds[i]=shuffledAds[j]
-shuffledAds[j]=temp
-
-}
-
-adIndex=0
-
-}
-
-shuffleAds()
-
 function openAds(){
 
 if(adOpened) return
 
 document.getElementById("getBtn").disabled=true
 
-openNextAd()
+const randomAd=ads[Math.floor(Math.random()*ads.length)]
 
-}
-
-function openNextAd(){
-
-if(adIndex>=shuffledAds.length){
-
-shuffleAds()
-
-}
-
-let ad=shuffledAds[adIndex]
-adIndex++
-
-let win=window.open(ad,"_blank")
-
-if(!win){
-
-setTimeout(openNextAd,500)
-return
-
-}
+window.open(randomAd,"_blank")
 
 adOpened=true
 mustLeave=true
@@ -353,6 +343,41 @@ toast.classList.remove("show")
 },2000)
 
 }
+
+function createBubble(){
+
+let b=document.createElement("div")
+
+b.className="bubble"
+
+let size=Math.random()*120+40
+
+b.style.width=size+"px"
+b.style.height=size+"px"
+b.style.left=Math.random()*100+"%"
+
+document.body.appendChild(b)
+
+setTimeout(()=>b.remove(),10000)
+
+}
+
+setInterval(createBubble,600)
+
+function createLine(){
+
+let l=document.createElement("div")
+
+l.className="line"
+l.style.left=Math.random()*100+"%"
+
+document.body.appendChild(l)
+
+setTimeout(()=>l.remove(),4000)
+
+}
+
+setInterval(createLine,600)
 
 </script>
 
