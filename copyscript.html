@@ -34,20 +34,12 @@ background-size:100% 100%,300% 300%;
 animation:bgmove 12s ease infinite;
 }
 
-@keyframes bgmove{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
-}
-
 .container{
 width:90%;
 max-width:420px;
 padding:30px;
 background:rgba(0,0,0,0.55);
 border-radius:15px;
-backdrop-filter:blur(6px);
-box-shadow:0 0 25px rgba(0,0,0,0.6);
 }
 
 textarea{
@@ -57,14 +49,10 @@ border:none;
 border-radius:10px;
 padding:12px;
 resize:none;
-font-size:15px;
 margin-bottom:20px;
 }
 
-/* ปุ่มเหมือนหน้าแรก */
-
 .btn{
-display:block;
 width:100%;
 padding:16px;
 font-size:18px;
@@ -78,16 +66,6 @@ color:white;
 cursor:pointer;
 
 animation:shine 2s linear infinite;
-transition:0.25s;
-}
-
-.btn:hover{
-transform:scale(1.06);
-box-shadow:0 0 25px rgba(255,0,0,0.7);
-}
-
-.btn:active{
-transform:scale(0.95);
 }
 
 @keyframes shine{
@@ -132,35 +110,24 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/meobeo8/a/a/a"))()
 
 <script>
 
-/* =========================
-   SECURITY CHECK SYSTEM
-========================= */
+/* TOKEN CHECK */
 
-let params = new URLSearchParams(location.search)
+let params=new URLSearchParams(location.search)
 
-let token = params.get("token")
-let savedToken = sessionStorage.getItem("token")
-let expire = sessionStorage.getItem("expire")
+let token=params.get("token")
 
-/* 1. token ต้องตรง */
-if(!token || token !== savedToken){
+let savedToken=localStorage.getItem("token")
+let expire=localStorage.getItem("expire")
+
+if(!token || token!==savedToken){
 location.href="index.html"
 }
 
-/* 2. หมดเวลา */
-if(Date.now() > expire){
+if(Date.now()>expire){
 location.href="index.html"
 }
 
-/* 3. กัน bookmark / refresh */
-
-if(!document.referrer.includes("index")){
-location.href="index.html"
-}
-
-/* =========================
-   COPY
-========================= */
+/* COPY */
 
 function copyText(){
 
@@ -170,19 +137,15 @@ let btn=document.getElementById("copyBtn")
 navigator.clipboard.writeText(textarea.value)
 
 btn.innerText="✔ Copied"
-btn.style.transform="scale(0.95)"
 
 setTimeout(()=>{
 btn.innerText="📄 Copy Text"
-btn.style.transform="scale(1)"
 },1500)
 
 showToast()
 
-/* token ใช้ครั้งเดียว */
-
-sessionStorage.removeItem("token")
-sessionStorage.removeItem("expire")
+localStorage.removeItem("token")
+localStorage.removeItem("expire")
 
 }
 
