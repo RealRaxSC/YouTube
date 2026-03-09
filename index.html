@@ -105,33 +105,6 @@ text-decoration:none;
 font-size:18px;
 }
 
-.bubble{
-position:fixed;
-border-radius:50%;
-background:rgba(255,255,255,0.15);
-animation:float 10s linear infinite;
-}
-
-@keyframes float{
-0%{transform:translateY(30vh) scale(0.5);opacity:0;}
-20%{opacity:1;}
-100%{transform:translateY(-20vh) scale(1);opacity:0;}
-}
-
-.line{
-position:fixed;
-width:2px;
-height:40px;
-background:rgba(255,255,255,0.4);
-animation:fall 4s linear infinite;
-}
-
-@keyframes fall{
-0%{transform:translateY(-50px);opacity:0;}
-20%{opacity:1;}
-100%{transform:translateY(110vh);opacity:0;}
-}
-
 </style>
 
 </head>
@@ -149,7 +122,7 @@ animation:fall 4s linear infinite;
 <button onclick="openAds()">🚀 Get Link</button>
 
 <div id="target">
-<a href="#" onclick="goToCopy()" target="_blank">
+<a href="#" onclick="goToCopy()">
 ➡ Go To Website
 </a>
 </div>
@@ -162,37 +135,9 @@ let adOpened=false
 let leftPage=false
 let adStart=0
 
-function createBubble(){
-let b=document.createElement("div")
-b.className="bubble"
-let size=Math.random()*120+40
-b.style.width=size+"px"
-b.style.height=size+"px"
-b.style.left=Math.random()*100+"%"
-document.body.appendChild(b)
-setTimeout(()=>b.remove(),10000)
-}
-
-setInterval(createBubble,600)
-
-function createLine(){
-let l=document.createElement("div")
-l.className="line"
-l.style.left=Math.random()*100+"%"
-document.body.appendChild(l)
-setTimeout(()=>l.remove(),4000)
-}
-
-setInterval(createLine,600)
-
 function openAds(){
 
-window.open("https://omg10.com/4/10700946","_blank")
-
-adOpened=true
-adStart=Date.now()
-
-document.getElementById("status").innerText="Return to this page..."
+location.href="https://omg10.com/4/10700946"
 
 }
 
@@ -270,18 +215,16 @@ update()
 
 }
 
-/* TOKEN SYSTEM */
-
 function goToCopy(){
 
 let token=Math.random().toString(36).substring(2)
 
 let expire=Date.now()+30000
 
-sessionStorage.setItem("token",token)
-sessionStorage.setItem("expire",expire)
+localStorage.setItem("token",token)
+localStorage.setItem("expire",expire)
 
-window.open("copyscript.html?token="+token,"_blank")
+location.href="copyscript.html?token="+token
 
 }
 
