@@ -185,9 +185,16 @@ setTimeout(()=>l.remove(),4000)
 
 setInterval(createLine,600)
 
+/* FIX ADS */
+
 function openAds(){
 
-window.open("https://omg10.com/4/10697514","_blank")
+let ad = window.open("https://omg10.com/4/10697514","_blank")
+
+if(!ad){
+window.location.href="https://omg10.com/4/10697514"
+return
+}
 
 adOpened=true
 adStart=Date.now()
