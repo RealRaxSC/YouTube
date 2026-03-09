@@ -74,42 +74,35 @@ animation:shine 1.5s linear infinite;
 transition:width 0.1s linear;
 }
 
-.btn{
-display:block;
-width:100%;
-padding:16px;
-font-size:18px;
-border:none;
-border-radius:12px;
-
-background:linear-gradient(90deg,#ff4b4b,#ff0000,#ff4b4b);
-background-size:200% 100%;
-
-color:white;
-cursor:pointer;
-text-decoration:none;
-
-animation:shine 2s linear infinite;
-transition:0.25s;
-}
-
-.btn:hover{
-transform:scale(1.06);
-box-shadow:0 0 25px rgba(255,0,0,0.7);
-}
-
-.btn:active{
-transform:scale(0.95);
-}
-
 @keyframes shine{
 0%{background-position:200% 0;}
 100%{background-position:-200% 0;}
 }
 
+button{
+width:100%;
+padding:16px;
+font-size:18px;
+border:none;
+border-radius:12px;
+background:linear-gradient(#ff4b4b,#ff0000);
+color:white;
+cursor:pointer;
+}
+
 #target{
 display:none;
 margin-top:20px;
+}
+
+#target a{
+display:block;
+padding:14px;
+background:white;
+border-radius:10px;
+color:black;
+text-decoration:none;
+font-size:18px;
 }
 
 .bubble{
@@ -153,10 +146,10 @@ animation:fall 4s linear infinite;
 <div id="bar"></div>
 </div>
 
-<button class="btn" onclick="openAds()">🚀 Get Link</button>
+<button onclick="openAds()">🚀 Get Link</button>
 
 <div id="target">
-<a class="btn" href="#" onclick="goToCopy()" target="_blank">
+<a href="#" onclick="goToCopy()" target="_blank">
 ➡ Go To Website
 </a>
 </div>
@@ -206,7 +199,9 @@ document.getElementById("status").innerText="Return to this page..."
 document.addEventListener("visibilitychange",function(){
 
 if(document.hidden && adOpened){
+
 leftPage=true
+
 }
 
 if(!document.hidden && adOpened && leftPage){
@@ -275,14 +270,16 @@ update()
 
 }
 
+/* TOKEN SYSTEM */
+
 function goToCopy(){
 
 let token=Math.random().toString(36).substring(2)
 
 let expire=Date.now()+30000
 
-localStorage.setItem("token",token)
-localStorage.setItem("expire",expire)
+sessionStorage.setItem("token",token)
+sessionStorage.setItem("expire",expire)
 
 window.open("copyscript.html?token="+token,"_blank")
 
