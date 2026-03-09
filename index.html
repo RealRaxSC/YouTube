@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Get Link</title>
 
 <style>
@@ -14,11 +14,10 @@ display:flex;
 justify-content:center;
 align-items:center;
 font-family:Arial;
+background:linear-gradient(135deg,#000,#444,#bbb,#444,#000);
+background-size:400% 400%;
+animation:bg 12s infinite alternate;
 color:white;
-text-align:center;
-background:linear-gradient(120deg,#000,#666,#ddd,#666,#000);
-background-size:300% 300%;
-animation:bg 10s infinite alternate;
 }
 
 @keyframes bg{
@@ -26,19 +25,20 @@ animation:bg 10s infinite alternate;
 100%{background-position:100% 50%}
 }
 
-.box{
-background:rgba(0,0,0,.6);
-padding:30px;
-border-radius:15px;
+.card{
 width:90%;
-max-width:400px;
+max-width:420px;
+background:rgba(0,0,0,.6);
+padding:35px;
+border-radius:15px;
+text-align:center;
 }
 
 button,a{
-display:block;
 width:100%;
-padding:15px;
+display:block;
 margin-top:15px;
+padding:15px;
 border:none;
 border-radius:10px;
 font-size:18px;
@@ -47,23 +47,23 @@ text-decoration:none;
 }
 
 button{
-background:#ff0000;
+background:#ff2a2a;
 color:white;
 }
 
-#go{
+#unlock{
 display:none;
 background:white;
 color:black;
 }
 
-#bar{
+.bar{
 height:8px;
-background:red;
+background:#ff2a2a;
 width:0%;
 margin-top:15px;
 border-radius:10px;
-display:none;
+transition:.3s;
 }
 
 </style>
@@ -71,78 +71,78 @@ display:none;
 
 <body>
 
-<div class="box">
+<div class="card">
 
 <h2 id="status">Click Get Link</h2>
 
-<button onclick="start()">🚀 Get Link</button>
+<button onclick="openAds()">🚀 Get Link</button>
 
-<div id="bar"></div>
+<div class="bar" id="bar"></div>
 
-<a id="go" href="#">➡ Go To Website</a>
+<a id="unlock">➡ Continue</a>
 
 </div>
 
 <script>
 
-function start(){
+function openAds(){
+
+localStorage.setItem("adStart",Date.now())
 
 location.href="https://omg10.com/4/10700946"
 
 }
 
-window.addEventListener("pageshow",()=>{
+window.onload=()=>{
 
-if(!localStorage.getItem("adtime")){
+let adStart=localStorage.getItem("adStart")
 
-localStorage.setItem("adtime",Date.now())
-return
+if(!adStart) return
 
-}
+let stay=(Date.now()-adStart)/1000
 
-let stay=(Date.now()-localStorage.getItem("adtime"))/1000
+localStorage.removeItem("adStart")
 
 if(stay<3){
+
 document.getElementById("status").innerText="Stay on Ads longer"
-localStorage.removeItem("adtime")
 return
+
 }
 
-localStorage.removeItem("adtime")
+unlock()
 
-countdown()
+}
 
-})
-
-function countdown(){
+function unlock(){
 
 let bar=document.getElementById("bar")
 let status=document.getElementById("status")
-let go=document.getElementById("go")
-
-bar.style.display="block"
+let btn=document.getElementById("unlock")
 
 let t=5
-let i=setInterval(()=>{
+
+let timer=setInterval(()=>{
 
 t--
 
 bar.style.width=(100-(t*20))+"%"
 
-status.innerText="Please wait "+t+"s"
+status.innerText="Unlocking "+t+"s"
 
 if(t<=0){
 
-clearInterval(i)
+clearInterval(timer)
 
 status.innerText="Link Ready"
 
 let token=Math.random().toString(36).slice(2)
 
-localStorage.setItem("token",token)
+sessionStorage.setItem("access",token)
 
-go.style.display="block"
-go.href="copyscript.html?token="+token
+btn.style.display="block"
+
+btn.href="copy.html?token="+token
 
 }
 
