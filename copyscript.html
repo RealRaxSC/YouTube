@@ -165,6 +165,14 @@ if(Date.now()>expire){
 location.href="index.html"
 }
 
+/* กัน back cache */
+
+window.addEventListener("pageshow",function(e){
+if(e.persisted){
+location.href="index.html"
+}
+})
+
 /* COPY */
 
 function copyText(){
@@ -184,7 +192,7 @@ btn.style.transform="scale(1)"
 
 showToast()
 
-/* TOKEN หมดทันที */
+/* TOKEN หมดหลัง copy */
 
 sessionStorage.removeItem("token")
 sessionStorage.removeItem("expire")
@@ -208,7 +216,6 @@ toast.classList.remove("show")
 function createBubble(){
 
 let b=document.createElement("div")
-
 b.className="bubble"
 
 let size=Math.random()*120+40
@@ -225,7 +232,7 @@ setTimeout(()=>b.remove(),10000)
 
 setInterval(createBubble,600)
 
-/* falling lines */
+/* lines */
 
 function createLine(){
 
