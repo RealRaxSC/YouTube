@@ -1,130 +1,246 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Copy Script</title>
+
+<title>Copy Text</title>
 
 <style>
 
+*{box-sizing:border-box;}
+
 body{
 margin:0;
-background:#000;
-font-family:Arial;
+min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
-color:white;
-}
-
-.box{
-background:#0b0b0b;
-padding:35px;
-border-radius:16px;
-width:340px;
+font-family:Arial,sans-serif;
+color:#fff;
+overflow:hidden;
 text-align:center;
-box-shadow:0 0 40px rgba(0,0,0,0.9);
+
+background:
+radial-gradient(circle at center,
+rgba(255,255,255,0.35) 0%,
+rgba(220,220,220,0.25) 25%,
+rgba(0,0,0,0.65) 70%,
+rgba(0,0,0,0.9) 100%),
+linear-gradient(120deg,#0f0f0f,#5a5a5a,#cfcfcf,#5a5a5a,#0f0f0f);
+
+background-size:100% 100%,300% 300%;
+animation:bgmove 12s ease infinite;
 }
 
-h2{
-margin-bottom:15px;
+@keyframes bgmove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.container{
+width:90%;
+max-width:420px;
+padding:30px;
+background:rgba(0,0,0,0.55);
+border-radius:15px;
+backdrop-filter:blur(6px);
+box-shadow:0 0 25px rgba(0,0,0,0.6);
 }
 
 textarea{
 width:100%;
-height:120px;
-background:#000;
+height:100px;
 border:none;
 border-radius:10px;
-color:#00ff9d;
 padding:12px;
 resize:none;
-font-size:14px;
+font-size:15px;
 margin-bottom:20px;
 }
 
-.btn{
+button{
 width:100%;
-padding:15px;
+padding:16px;
+font-size:18px;
 border:none;
 border-radius:12px;
-font-size:16px;
-cursor:pointer;
-margin-top:12px;
-
-background:linear-gradient(90deg,#ff0000,#ff3c3c,#ff0000);
+background:linear-gradient(90deg,#ff4b4b,#ff0000,#ff4b4b);
 background-size:200% 100%;
 color:white;
-
+cursor:pointer;
 animation:shine 2s linear infinite;
 transition:0.2s;
 }
 
-.btn:hover{
+button:hover{
 transform:scale(1.05);
-box-shadow:0 0 20px red;
+box-shadow:0 0 20px rgba(255,0,0,0.7);
 }
 
 @keyframes shine{
-0%{background-position:200% 0}
-100%{background-position:-200% 0}
+0%{background-position:200% 0;}
+100%{background-position:-200% 0;}
+}
+
+.toast{
+position:fixed;
+top:-80px;
+left:50%;
+transform:translateX(-50%);
+background:rgba(0,0,0,0.7);
+padding:12px 20px;
+border-radius:10px;
+transition:0.4s;
+}
+
+.toast.show{
+top:30px;
+}
+
+.bubble{
+position:fixed;
+border-radius:50%;
+background:rgba(255,255,255,0.15);
+animation:float 10s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(30vh) scale(0.5);opacity:0;}
+20%{opacity:1;}
+100%{transform:translateY(-20vh) scale(1);opacity:0;}
+}
+
+.line{
+position:fixed;
+width:2px;
+height:40px;
+background:rgba(255,255,255,0.4);
+animation:fall 4s linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-50px);opacity:0;}
+20%{opacity:1;}
+100%{transform:translateY(110vh);opacity:0;}
 }
 
 </style>
+
 </head>
 
 <body>
 
-<div class="box">
+<div class="container">
 
-<h2>Copy Script</h2>
+<h2>Your Text</h2>
 
-<textarea id="script" readonly>
-loadstring(game:HttpGet("https://example.com/script.lua"))()
+<textarea id="text" readonly>
+loadstring(game:HttpGet("https://raw.githubusercontent.com/meobeo8/a/a/a"))()
 </textarea>
 
-<button class="btn" onclick="copyScript()">Copy Script</button>
-
-<button class="btn" onclick="gotoSite()">Go To Website</button>
+<button id="copyBtn" onclick="copyText()">📄 Copy Text</button>
 
 </div>
 
+<div id="toast" class="toast">Copied</div>
+
 <script>
 
-let token = localStorage.getItem("token")
-let expire = localStorage.getItem("expire")
+/* TOKEN CHECK */
 
-// กันเปิดตรง
-if(!token){
-window.location.href="index.html"
+let params=new URLSearchParams(location.search)
+
+let token=params.get("token")
+let savedToken=sessionStorage.getItem("token")
+let expire=sessionStorage.getItem("expire")
+
+if(!token || token!==savedToken){
+location.href="index.html"
 }
 
-// หมดเวลา
-if(Date.now() > expire){
-localStorage.removeItem("token")
-localStorage.removeItem("expire")
-window.location.href="index.html"
+if(Date.now()>expire){
+location.href="index.html"
 }
 
-function copyScript(){
+/* COPY */
 
-let text = document.getElementById("script")
+function copyText(){
 
-text.select()
-text.setSelectionRange(0,99999)
+let textarea=document.getElementById("text")
+let btn=document.getElementById("copyBtn")
 
-navigator.clipboard.writeText(text.value)
+navigator.clipboard.writeText(textarea.value)
 
-alert("Script copied!")
+btn.innerText="✔ Copied"
+btn.style.transform="scale(0.95)"
+
+setTimeout(()=>{
+btn.innerText="📄 Copy Text"
+btn.style.transform="scale(1)"
+},1500)
+
+showToast()
+
+/* TOKEN หมดทันที */
+
+sessionStorage.removeItem("token")
+sessionStorage.removeItem("expire")
 
 }
 
-function gotoSite(){
+function showToast(){
 
-window.location.href="https://google.com"
+let toast=document.getElementById("toast")
+
+toast.classList.add("show")
+
+setTimeout(()=>{
+toast.classList.remove("show")
+},2000)
 
 }
+
+/* bubbles */
+
+function createBubble(){
+
+let b=document.createElement("div")
+
+b.className="bubble"
+
+let size=Math.random()*120+40
+
+b.style.width=size+"px"
+b.style.height=size+"px"
+b.style.left=Math.random()*100+"%"
+
+document.body.appendChild(b)
+
+setTimeout(()=>b.remove(),10000)
+
+}
+
+setInterval(createBubble,600)
+
+/* falling lines */
+
+function createLine(){
+
+let l=document.createElement("div")
+
+l.className="line"
+l.style.left=Math.random()*100+"%"
+
+document.body.appendChild(l)
+
+setTimeout(()=>l.remove(),4000)
+
+}
+
+setInterval(createLine,600)
 
 </script>
 
