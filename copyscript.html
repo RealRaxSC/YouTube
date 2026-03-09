@@ -5,58 +5,105 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Copy Script</title>
+<title>Download Link</title>
 
 <style>
 
+*{box-sizing:border-box;}
+
 body{
 margin:0;
-height:100vh;
+min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-font-family:Arial;
-background:#111;
-color:white;
+font-family:Arial, sans-serif;
+color:#fff;
+overflow:hidden;
 text-align:center;
+
+background:
+radial-gradient(circle at center,
+rgba(255,255,255,0.35) 0%,
+rgba(220,220,220,0.25) 25%,
+rgba(0,0,0,0.65) 70%,
+rgba(0,0,0,0.9) 100%),
+linear-gradient(120deg,#0f0f0f,#5a5a5a,#cfcfcf,#5a5a5a,#0f0f0f);
+
+background-size:100% 100%,300% 300%;
+animation:bgmove 12s ease infinite;
+}
+
+@keyframes bgmove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 
 .container{
-background:#1c1c1c;
-padding:30px;
-border-radius:12px;
 width:90%;
 max-width:420px;
-box-shadow:0 0 20px rgba(0,0,0,0.6);
+padding:30px;
+background:rgba(0,0,0,0.55);
+border-radius:15px;
+backdrop-filter:blur(6px);
+box-shadow:0 0 25px rgba(0,0,0,0.6);
 }
 
-h2{
-margin-bottom:20px;
+h1{
+margin-bottom:10px;
 }
 
-#scriptBox{
+p{
+opacity:0.8;
+margin-bottom:25px;
+}
+
+.linkbox{
 background:white;
+padding:14px;
+border-radius:10px;
 color:black;
-padding:15px;
-border-radius:8px;
 word-break:break-all;
-margin-bottom:15px;
-font-size:14px;
+margin-bottom:20px;
 }
 
 button{
 width:100%;
-padding:14px;
+padding:16px;
+font-size:18px;
 border:none;
-border-radius:10px;
-font-size:16px;
-cursor:pointer;
-background:#0d6efd;
+border-radius:12px;
+background:linear-gradient(#ff4b4b,#ff0000);
 color:white;
+cursor:pointer;
 }
 
-button:hover{
-opacity:0.9;
+.bubble{
+position:fixed;
+border-radius:50%;
+background:rgba(255,255,255,0.15);
+animation:float 10s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(30vh) scale(0.5);opacity:0;}
+20%{opacity:1;}
+100%{transform:translateY(-20vh) scale(1);opacity:0;}
+}
+
+.line{
+position:fixed;
+width:2px;
+height:40px;
+background:rgba(255,255,255,0.4);
+animation:fall 4s linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-50px);opacity:0;}
+20%{opacity:1;}
+100%{transform:translateY(110vh);opacity:0;}
 }
 
 </style>
@@ -67,27 +114,66 @@ opacity:0.9;
 
 <div class="container">
 
-<h2>Copy Script</h2>
+<h1>🔗 Your Link</h1>
 
-<div id="scriptBox">
-&lt;script src="https://yourdomain.com/gateway.js"&gt;&lt;/script&gt;
+<p>Copy or open the link below</p>
+
+<div class="linkbox" id="link">
+https://example.com
 </div>
 
-<button onclick="copyScript()">📋 Copy Script</button>
+<button onclick="copyLink()">📋 Copy Link</button>
+
+<br><br>
+
+<button onclick="openLink()">🚀 Open Link</button>
 
 </div>
 
 <script>
 
-function copyScript(){
+let finalLink="https://example.com"
 
-let text=document.getElementById("scriptBox").innerText;
+document.getElementById("link").innerText=finalLink
 
-navigator.clipboard.writeText(text);
+function copyLink(){
 
-alert("Script copied!");
+navigator.clipboard.writeText(finalLink)
+
+alert("Link copied!")
 
 }
+
+function openLink(){
+
+window.open(finalLink,"_blank")
+
+}
+
+/* background effects */
+
+function createBubble(){
+let b=document.createElement("div")
+b.className="bubble"
+let size=Math.random()*120+40
+b.style.width=size+"px"
+b.style.height=size+"px"
+b.style.left=Math.random()*100+"%"
+document.body.appendChild(b)
+setTimeout(()=>b.remove(),10000)
+}
+
+setInterval(createBubble,600)
+
+function createLine(){
+let l=document.createElement("div")
+l.className="line"
+l.style.left=Math.random()*100+"%"
+document.body.appendChild(l)
+setTimeout(()=>l.remove(),4000)
+}
+
+setInterval(createLine,600)
 
 </script>
 
