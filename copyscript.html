@@ -149,7 +149,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/meobeo8/a/a/a"))()
 
 <script>
 
-/* TOKEN CHECK */
+/* ---------------- TOKEN CHECK ---------------- */
 
 let params=new URLSearchParams(location.search)
 
@@ -165,7 +165,33 @@ if(Date.now()>expire){
 location.href="index.html"
 }
 
-/* COPY */
+/* ----------- REFERRER CHECK (กันเข้าตรง) ----------- */
+
+if(!document.referrer.includes(location.hostname)){
+location.href="index.html"
+}
+
+/* ----------- TAB CACHE PROTECTION ----------- */
+
+window.addEventListener("pageshow",function(e){
+
+if(e.persisted){
+location.href="index.html"
+}
+
+})
+
+/* ----------- TOKEN MEMORY WATCH ----------- */
+
+setInterval(function(){
+
+if(!sessionStorage.getItem("token")){
+location.href="index.html"
+}
+
+},1000)
+
+/* ---------------- COPY ---------------- */
 
 function copyText(){
 
@@ -215,6 +241,7 @@ let size=Math.random()*120+40
 
 b.style.width=size+"px"
 b.style.height=size+"px"
+
 b.style.left=Math.random()*100+"%"
 
 document.body.appendChild(b)
@@ -225,13 +252,14 @@ setTimeout(()=>b.remove(),10000)
 
 setInterval(createBubble,600)
 
-/* falling lines */
+/* lines */
 
 function createLine(){
 
 let l=document.createElement("div")
 
 l.className="line"
+
 l.style.left=Math.random()*100+"%"
 
 document.body.appendChild(l)
