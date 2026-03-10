@@ -75,14 +75,7 @@ display:none;
 height:100%;
 width:0%;
 background:linear-gradient(90deg,#00c853,#00e676,#00c853);
-background-size:200% 100%;
-animation:shine 1.5s linear infinite;
 transition:width .1s linear;
-}
-
-@keyframes shine{
-0%{background-position:200% 0;}
-100%{background-position:-200% 0;}
 }
 
 /* BUTTON */
@@ -93,36 +86,53 @@ padding:16px;
 font-size:18px;
 border:none;
 border-radius:12px;
-background:linear-gradient(90deg,#ff4b4b,#ff0000,#ff4b4b);
-background-size:300% 100%;
+
+background:linear-gradient(90deg,#ff4b4b,#ff0000);
+
 color:white;
 cursor:pointer;
-transition:.2s;
+
+transition:
+transform .18s cubic-bezier(.2,.8,.2,1),
+box-shadow .18s ease,
+filter .18s ease;
 
 transform:translateZ(0);
-
-animation:btnmove 3s linear infinite,
-pulse 1.8s ease-in-out infinite;
+will-change:transform;
 }
 
-@keyframes btnmove{
-0%{background-position:0% 50%;}
-100%{background-position:200% 50%;}
-}
-
-@keyframes pulse{
-0%{transform:scale(1);}
-50%{transform:scale(1.05);}
-100%{transform:scale(1);}
-}
+/* hover */
 
 button:hover{
-transform:scale(1.07);
-box-shadow:0 0 20px rgba(255,0,0,0.8);
+
+transform:translateY(-4px) scale(1.04);
+
+box-shadow:
+0 10px 25px rgba(255,0,0,0.55),
+0 0 12px rgba(255,0,0,0.35);
+
+filter:brightness(1.1);
+
 }
 
+/* click */
+
 button:active{
-transform:scale(0.95);
+
+transform:translateY(1px) scale(.97);
+
+box-shadow:
+0 4px 10px rgba(0,0,0,0.4);
+
+}
+
+/* disabled */
+
+button:disabled{
+opacity:.6;
+cursor:not-allowed;
+transform:none;
+box-shadow:none;
 }
 
 .page{display:none;}
@@ -257,7 +267,6 @@ checkReturn()
 })
 
 window.addEventListener("focus",checkReturn)
-window.addEventListener("pageshow",checkReturn)
 
 function checkReturn(){
 
