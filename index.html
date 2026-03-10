@@ -55,6 +55,18 @@ margin-bottom:15px;
 font-size:18px;
 }
 
+.video-thumb{
+width:100%;
+border-radius:10px;
+margin-bottom:15px;
+}
+
+.yt-btn{
+display:block;
+margin-bottom:10px;
+text-decoration:none;
+}
+
 #progress{
 width:100%;
 height:10px;
@@ -97,26 +109,6 @@ button:hover{
 transform:scale(1.05);
 box-shadow:0 0 20px rgba(255,0,0,0.7);
 }
-
-/* เพิ่มส่วนนี้ */
-
-.video-thumb{
-width:100%;
-border-radius:10px;
-margin-bottom:15px;
-}
-
-.yt-btn{
-display:block;
-text-decoration:none;
-margin-bottom:10px;
-}
-
-.yt-btn button{
-width:100%;
-}
-
-/* ---------------- */
 
 .page{
 display:none;
@@ -189,6 +181,17 @@ animation:fall 4s linear infinite;
 
 <div id="page1" class="page active">
 
+<img class="video-thumb"
+src="https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg">
+
+<a class="yt-btn" href="CHANNEL_LINK" target="_blank">
+<button>❤️ Subscribe Channel</button>
+</a>
+
+<a class="yt-btn" href="VIDEO_LINK" target="_blank">
+<button>💬 Like & Comment</button>
+</a>
+
 <div id="status">Click Get Link</div>
 
 <div id="progress">
@@ -208,21 +211,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent
 </textarea>
 
 <button id="copyBtn" onclick="copyText()">📄 Copy script</button>
-
-<!-- เพิ่มส่วนนี้ -->
-
-<img class="video-thumb"
-src="https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg">
-
-<a class="yt-btn" href="CHANNEL_LINK" target="_blank">
-<button>❤️ Subscribe Channel</button>
-</a>
-
-<a class="yt-btn" href="VIDEO_LINK" target="_blank">
-<button>💬 Like & Comment</button>
-</a>
-
-<!-- ---------------- -->
 
 </div>
 
@@ -293,15 +281,11 @@ leftPage=false
 document.addEventListener("visibilitychange",function(){
 
 if(document.hidden && adOpened){
-
 leftPage=true
-
 }
 
 if(!document.hidden){
-
 checkReturn()
-
 }
 
 })
@@ -362,14 +346,10 @@ let textarea=document.getElementById("text")
 let btn=document.getElementById("copyBtn")
 
 if(navigator.clipboard){
-
 navigator.clipboard.writeText(textarea.value)
-
 }else{
-
 textarea.select()
 document.execCommand("copy")
-
 }
 
 btn.innerText="✔ Copied"
