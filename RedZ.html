@@ -1,3 +1,5 @@
+full code
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,22 +88,47 @@ padding:16px;
 font-size:18px;
 border:none;
 border-radius:12px;
+
 background:linear-gradient(90deg,#ff4b4b,#ff0000);
+
 color:white;
 cursor:pointer;
-transition:all .2s ease;
-transform:translateY(0);
+
+transition:
+transform .18s cubic-bezier(.2,.8,.2,1),
+box-shadow .18s ease,
+filter .18s ease;
+
+transform:translateZ(0);
+will-change:transform;
 }
 
-button.hover{
-transform:translateY(-6px) scale(1.05);
-box-shadow:0 12px 30px rgba(255,0,0,.6);
+/* hover */
+
+button:hover{
+
+transform:translateY(-4px) scale(1.04);
+
+box-shadow:
+0 10px 25px rgba(255,0,0,0.55),
+0 0 12px rgba(255,0,0,0.35);
+
+filter:brightness(1.1);
+
 }
+
+/* click */
 
 button:active{
-transform:translateY(2px) scale(.96);
-box-shadow:0 4px 10px rgba(0,0,0,.4);
+
+transform:translateY(1px) scale(.97);
+
+box-shadow:
+0 4px 10px rgba(0,0,0,0.4);
+
 }
+
+/* disabled */
 
 button:disabled{
 opacity:.6;
@@ -181,7 +208,7 @@ src="https://img.youtube.com/vi/FCfEYlq-RRg/maxresdefault.jpg">
 loadstring(game:HttpGet("https://example.com/script.lua"))()
 </textarea>
 
-<button id="copyBtn">📄 Copy script</button>
+<button onclick="copyText()">📄 Copy script</button>
 
 </div>
 
@@ -192,23 +219,6 @@ loadstring(game:HttpGet("https://example.com/script.lua"))()
 <div id="toast" class="toast">✔ Copied</div>
 
 <script>
-
-const btn=document.getElementById("getBtn")
-
-/* hover fix */
-
-btn.addEventListener("mouseenter",()=>btn.classList.add("hover"))
-btn.addEventListener("mouseleave",()=>btn.classList.remove("hover"))
-
-btn.addEventListener("mousemove",()=>btn.classList.add("hover"))
-
-document.addEventListener("mousemove",(e)=>{
-if(!btn.contains(e.target)){
-btn.classList.remove("hover")
-}
-})
-
-/* ads */
 
 let adOpened=false
 let leftPage=false
@@ -223,7 +233,7 @@ const ads=[
 "https://omg10.com/4/10703028"
 ]
 
-btn.onclick=openAds
+document.getElementById("getBtn").onclick=openAds
 
 function openAds(){
 
@@ -235,7 +245,7 @@ let link=document.getElementById("adLink")
 link.href=ad
 link.click()
 
-btn.disabled=true
+document.getElementById("getBtn").disabled=true
 
 adOpened=true
 checking=true
@@ -274,7 +284,7 @@ if(stay<2){
 
 document.getElementById("status").innerText="Please stay on Ads longer"
 
-btn.disabled=false
+document.getElementById("getBtn").disabled=false
 adOpened=false
 leftPage=false
 return
@@ -333,43 +343,13 @@ update()
 
 }
 
-/* copy fix */
-
-document.getElementById("copyBtn").onclick=copyText
-
 function copyText(){
 
 let textarea=document.getElementById("text")
 
-if(navigator.clipboard){
+navigator.clipboard.writeText(textarea.value)
 
-navigator.clipboard.writeText(textarea.value).then(()=>{
 showToast()
-}).catch(()=>{
-fallbackCopy()
-})
-
-}else{
-
-fallbackCopy()
-
-}
-
-}
-
-function fallbackCopy(){
-
-let textarea=document.getElementById("text")
-
-textarea.select()
-textarea.setSelectionRange(0,99999)
-
-try{
-document.execCommand("copy")
-showToast()
-}catch(e){
-alert("Copy failed")
-}
 
 }
 
@@ -384,8 +364,6 @@ toast.classList.remove("show")
 },2000)
 
 }
-
-/* bubbles */
 
 function createBubble(){
 
@@ -411,3 +389,4 @@ setInterval(createBubble,700)
 
 </body>
 </html>
+
