@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Get Link</title>
+
+<style>
+
+*{box-sizing:border-box;}
+
+body{
+margin:0;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:Arial, sans-serif;
+color:#fff;
+overflow:hidden;
+text-align:center;
+
+background:
+radial-gradient(circle at center,
+rgba(255,255,255,0.35) 0%,
+rgba(220,220,220,0.25) 25%,
+rgba(0,0,0,0.65) 70%,
+rgba(0,0,0,0.9) 100%),
+linear-gradient(120deg,#0f0f0f,#5a5a5a,#cfcfcf,#5a5a5a,#0f0f0f);
+
+background-size:100% 100%,300% 300%;
+animation:bgmove 12s ease infinite;
+}
+
+@keyframes bgmove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.container{
+width:90%;
+max-width:420px;
+padding:30px;
+background:rgba(0,0,0,0.55);
+border-radius:15px;
+backdrop-filter:blur(6px);
+box-shadow:0 0 25px rgba(0,0,0,0.6);
+}
+
+.video-thumb{
+width:100%;
+border-radius:10px;
+margin-bottom:15px;
+}
+
+.yt-btn{
+margin-bottom:10px;
+}
+
+#status{
+margin-bottom:10px;
+font-size:18px;
+}
+
+#actions{
+margin-bottom:15px;
+font-size:15px;
+opacity:0.8;
+}
+
+#progress{
+width:100%;
+height:10px;
+background:rgba(255,255,255,0.15);
+border-radius:30px;
+overflow:hidden;
+margin-bottom:20px;
+display:none;
+}
+
+#bar{
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#00c853,#00e676,#00c853);
+background-size:200% 100%;
+animation:shine 1.5s linear infinite;
+transition:width 0.1s linear;
+}
+
+@keyframes shine{
+0%{background-position:200% 0;}
+100%{background-position:-200% 0;}
+}
+
+button{
+width:100%;
+padding:16px;
+font-size:18px;
+border:none;
+border-radius:12px;
+background:linear-gradient(90deg,#ff4b4b,#ff0000,#ff4b4b);
+background-size:200% 100%;
+color:white;
+cursor:pointer;
+animation:shine 2s linear infinite;
+transition:0.2s;
+}
+
+button:hover{
+transform:scale(1.05);
+box-shadow:0 0 20px rgba(255,0,0,0.7);
+}
+
+#getBtn{
+display:none;
+}
+
+.completed{
+background:linear-gradient(90deg,#00c853,#00e676,#00c853);
+box-shadow:0 0 20px rgba(0,255,120,0.6);
+animation:none;
+cursor:default;
+}
+
+.completed:hover{
+transform:none;
+box-shadow:0 0 20px rgba(0,255,120,0.6);
+}
+
+.page{
+display:none;
+}
+
+.page.active{
+display:block;
+}
+
+.download-btn{
+width:100%;
+padding:18px;
+font-size:20px;
+border:none;
+border-radius:12px;
+background:linear-gradient(90deg,#00c853,#00e676,#00c853);
+color:white;
+cursor:pointer;
+box-shadow:0 0 20px rgba(0,255,120,0.7);
+}
+
+.download-btn:hover{
+transform:scale(1.05);
+}
+
+.bubble{
+position:fixed;
+border-radius:50%;
+background:rgba(255,255,255,0.15);
+animation:float 10s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(30vh) scale(0.5);opacity:0;}
+20%{opacity:1;}
+100%{transform:translateY(-20vh) scale(1);opacity:0;}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div id="page1" class="page active">
+
+<img class="video-thumb"
+src="https://img.youtube.com/vi/-lCf-dBK1cs/maxresdefault.jpg">
+
+<button id="subBtn" class="yt-btn" onclick="subscribe()">❤️ Subscribe Channel</button>
+
+<button id="likeBtn" class="yt-btn" onclick="likeVideo()" disabled>💬 Like & Comment</button>
+
+<div id="status">Complete steps to unlock Get Link</div>
+<div id="actions">0 / 2 Action Completed</div>
+
+<div id="progress">
+<div id="bar"></div>
+</div>
+
+<button id="getBtn" onclick="openAds()">🚀 Get Link</button>
+
+</div>
+
+<div id="page2" class="page">
+
+<h2>Download</h2>
+
+<a href="https://delta.filenetwork.vip/file/Delta-2.710.707-02.apk" download>
+<button class="download-btn">⬇ Download File</button>
+</a>
+
+</div>
+
+</div>
+
+<script>
+
+let subscribed=false
+let liked=false
+let actionCount=0
+
+let actionStart=0
+let waitingAction=null
+
+function subscribe(){
+
+if(subscribed) return
+
+window.open("https://www.youtube.com/@RealRaxScripts","_blank")
+
+waitingAction="sub"
+actionStart=Date.now()
+
+}
+
+function likeVideo(){
+
+if(!subscribed) return
+if(liked) return
+
+window.open("https://youtu.be/-lCf-dBK1cs","_blank")
+
+waitingAction="like"
+actionStart=Date.now()
+
+}
+
+document.addEventListener("visibilitychange",function(){
+
+if(!document.hidden && waitingAction){
+
+let stay=(Date.now()-actionStart)/1000
+
+if(stay>=3){
+
+if(waitingAction==="sub"){
+
+subscribed=true
+actionCount++
+
+document.getElementById("subBtn").innerText="✔ Completed"
+document.getElementById("subBtn").classList.add("completed")
+
+document.getElementById("likeBtn").disabled=false
+
+}
+
+if(waitingAction==="like"){
+
+liked=true
+actionCount++
+
+document.getElementById("likeBtn").innerText="✔ Completed"
+document.getElementById("likeBtn").classList.add("completed")
+
+}
+
+updateActions()
+checkSteps()
+
+}
+
+waitingAction=null
+
+}
+
+})
+
+function updateActions(){
+document.getElementById("actions").innerText=actionCount+" / 2 Action Completed"
+}
+
+function checkSteps(){
+
+if(subscribed && liked){
+
+document.getElementById("status").innerText="Get Link Unlocked"
+document.getElementById("getBtn").style.display="block"
+
+}
+
+}
+
+let adOpened=false
+let leftPage=false
+let adStart=0
+let countdownStarted=false
+let mustLeave=false
+
+const ads=[
+"https://omg10.com/4/10700946",
+"https://omg10.com/4/10697514",
+"https://omg10.com/4/10703023",
+"https://omg10.com/4/10703026",
+"https://omg10.com/4/10703028"
+]
+
+function openAds(){
+
+if(adOpened) return
+
+document.getElementById("getBtn").disabled=true
+
+const randomAd=ads[Math.floor(Math.random()*ads.length)]
+
+window.open(randomAd,"_blank")
+
+adOpened=true
+mustLeave=true
+adStart=Date.now()
+
+document.getElementById("status").innerText="Return to this page..."
+
+}
+
+document.addEventListener("visibilitychange",function(){
+
+if(document.hidden && adOpened){
+leftPage=true
+}
+
+if(!document.hidden){
+checkReturn()
+}
+
+})
+
+function checkReturn(){
+
+if(adOpened && leftPage && mustLeave && !countdownStarted){
+
+let stayTime=(Date.now()-adStart)/1000
+
+if(stayTime<3){
+
+document.getElementById("status").innerText="Please stay on Ads longer"
+
+adOpened=false
+leftPage=false
+document.getElementById("getBtn").disabled=false
+return
+
+}
+
+startCountdown()
+
+adOpened=false
+leftPage=false
+
+}
+
+}
+
+function startCountdown(){
+
+countdownStarted=true
+
+let duration=5000
+let start=Date.now()
+
+let status=document.getElementById("status")
+let progress=document.getElementById("progress")
+let bar=document.getElementById("bar")
+
+progress.style.display="block"
+
+function update(){
+
+let elapsed=Date.now()-start
+let percent=Math.min(elapsed/duration*100,100)
+
+bar.style.width=percent+"%"
+
+let seconds=Math.ceil((duration-elapsed)/1000)
+
+if(seconds>0){
+status.innerText="Please wait "+seconds+"s"
+}
+
+if(percent<100){
+
+requestAnimationFrame(update)
+
+}else{
+
+status.innerText="Link Ready"
+progress.style.display="none"
+
+document.getElementById("page1").classList.remove("active")
+document.getElementById("page2").classList.add("active")
+
+mustLeave=false
+
+}
+
+}
+
+update()
+
+}
+
+function createBubble(){
+
+let b=document.createElement("div")
+
+b.className="bubble"
+
+let size=Math.random()*120+40
+
+b.style.width=size+"px"
+b.style.height=size+"px"
+b.style.left=Math.random()*100+"%"
+
+document.body.appendChild(b)
+
+setTimeout(()=>b.remove(),10000)
+
+}
+
+setInterval(createBubble,600)
+
+</script>
+
+</body>
+</html>
