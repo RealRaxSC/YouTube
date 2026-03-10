@@ -118,16 +118,12 @@ box-shadow:0 0 20px rgba(255,0,0,0.7);
 display:none;
 }
 
-/* completed button */
-
 .completed{
 background:linear-gradient(90deg,#00c853,#00e676,#00c853);
 box-shadow:0 0 20px rgba(0,255,120,0.6);
 animation:none;
 cursor:default;
 }
-
-/* ป้องกัน hover เปลี่ยนสี */
 
 .completed:hover{
 transform:none;
@@ -192,7 +188,7 @@ animation:float 10s linear infinite;
 <div id="page1" class="page active">
 
 <img class="video-thumb"
-src="https://img.youtube.com/vi/FCfEYlq-RRg/maxresdefault.jpg">
+src="https://img.youtube.com/vi/-lCf-dBK1cs/maxresdefault.jpg">
 
 <button id="subBtn" class="yt-btn" onclick="subscribe()">❤️ Subscribe Channel</button>
 
@@ -211,17 +207,11 @@ src="https://img.youtube.com/vi/FCfEYlq-RRg/maxresdefault.jpg">
 
 <div id="page2" class="page">
 
-<h2>Your Script</h2>
+<h2>Download</h2>
 
-<textarea id="text" readonly>
-local Settings = {
-JoinTeam = "Pirates"; -- Pirates/Marines
-Translator = true; -- true/false
-}
-loadstring(game:HttpGet("https://raw.githubusercontent.com/PlockScripts/newredz/refs/heads/main/Remake-version.luau"))(Settings)
-</textarea>
-
-<button id="copyBtn" onclick="copyText()">📄 Copy script</button>
+<a href="https://delta.filenetwork.vip/file/Delta-2.710.707-02.apk" download>
+<button>⬇ Download</button>
+</a>
 
 </div>
 
@@ -230,6 +220,16 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/PlockScripts/newredz/
 <div id="toast" class="toast">✔ Copied</div>
 
 <script>
+
+function openSafe(url){
+
+let newTab = window.open(url,"_blank")
+
+if(!newTab || newTab.closed || typeof newTab.closed=='undefined'){
+location.href = url
+}
+
+}
 
 let subscribed=false
 let liked=false
@@ -242,7 +242,7 @@ function subscribe(){
 
 if(subscribed) return
 
-window.open("https://www.youtube.com/@RealRaxScripts","_blank")
+openSafe("https://www.youtube.com/@RealRaxScripts")
 
 waitingAction="sub"
 actionStart=Date.now()
@@ -254,7 +254,7 @@ function likeVideo(){
 if(!subscribed) return
 if(liked) return
 
-window.open("https://youtu.be/-lCf-dBK1cs","_blank")
+openSafe("https://youtu.be/-lCf-dBK1cs")
 
 waitingAction="like"
 actionStart=Date.now()
@@ -339,7 +339,7 @@ document.getElementById("getBtn").disabled=true
 
 const randomAd=ads[Math.floor(Math.random()*ads.length)]
 
-window.open(randomAd,"_blank")
+openSafe(randomAd)
 
 adOpened=true
 mustLeave=true
@@ -432,28 +432,6 @@ mustLeave=false
 }
 
 update()
-
-}
-
-function copyText(){
-
-let textarea=document.getElementById("text")
-
-navigator.clipboard.writeText(textarea.value)
-
-showToast()
-
-}
-
-function showToast(){
-
-let toast=document.getElementById("toast")
-
-toast.classList.add("show")
-
-setTimeout(()=>{
-toast.classList.remove("show")
-},2000)
 
 }
 
