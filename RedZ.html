@@ -89,19 +89,14 @@ border-radius:12px;
 background:linear-gradient(90deg,#ff4b4b,#ff0000);
 color:white;
 cursor:pointer;
-
 transition:all .2s ease;
 transform:translateY(0);
 }
-
-/* Hover effect */
 
 button.hover{
 transform:translateY(-6px) scale(1.05);
 box-shadow:0 12px 30px rgba(255,0,0,.6);
 }
-
-/* Click effect */
 
 button:active{
 transform:translateY(2px) scale(.96);
@@ -186,7 +181,7 @@ src="https://img.youtube.com/vi/FCfEYlq-RRg/maxresdefault.jpg">
 loadstring(game:HttpGet("https://example.com/script.lua"))()
 </textarea>
 
-<button onclick="copyText()">📄 Copy script</button>
+<button id="copyBtn">📄 Copy script</button>
 
 </div>
 
@@ -200,7 +195,7 @@ loadstring(game:HttpGet("https://example.com/script.lua"))()
 
 const btn=document.getElementById("getBtn")
 
-/* HOVER FIX FOR EMULATOR */
+/* hover fix */
 
 btn.addEventListener("mouseenter",()=>btn.classList.add("hover"))
 btn.addEventListener("mouseleave",()=>btn.classList.remove("hover"))
@@ -213,7 +208,7 @@ btn.classList.remove("hover")
 }
 })
 
-/* ADS SYSTEM */
+/* ads */
 
 let adOpened=false
 let leftPage=false
@@ -338,13 +333,43 @@ update()
 
 }
 
+/* copy fix */
+
+document.getElementById("copyBtn").onclick=copyText
+
 function copyText(){
 
 let textarea=document.getElementById("text")
 
-navigator.clipboard.writeText(textarea.value)
+if(navigator.clipboard){
 
+navigator.clipboard.writeText(textarea.value).then(()=>{
 showToast()
+}).catch(()=>{
+fallbackCopy()
+})
+
+}else{
+
+fallbackCopy()
+
+}
+
+}
+
+function fallbackCopy(){
+
+let textarea=document.getElementById("text")
+
+textarea.select()
+textarea.setSelectionRange(0,99999)
+
+try{
+document.execCommand("copy")
+showToast()
+}catch(e){
+alert("Copy failed")
+}
 
 }
 
@@ -359,6 +384,8 @@ toast.classList.remove("show")
 },2000)
 
 }
+
+/* bubbles */
 
 function createBubble(){
 
