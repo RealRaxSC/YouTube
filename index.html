@@ -112,6 +112,10 @@ box-shadow:0 0 20px rgba(255,0,0,0.7);
 display:none;
 }
 
+.completed{
+background:linear-gradient(90deg,#00c853,#00e676,#00c853);
+}
+
 .page{
 display:none;
 }
@@ -146,6 +150,21 @@ transition:0.4s;
 top:30px;
 }
 
+/* bubble background */
+
+.bubble{
+position:fixed;
+border-radius:50%;
+background:rgba(255,255,255,0.15);
+animation:float 10s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(30vh) scale(0.5);opacity:0;}
+20%{opacity:1;}
+100%{transform:translateY(-20vh) scale(1);opacity:0;}
+}
+
 </style>
 
 </head>
@@ -159,9 +178,9 @@ top:30px;
 <img class="video-thumb"
 src="https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg">
 
-<button class="yt-btn" onclick="subscribe()">❤️ Subscribe Channel</button>
+<button id="subBtn" class="yt-btn" onclick="subscribe()">❤️ Subscribe Channel</button>
 
-<button class="yt-btn" onclick="likeVideo()">💬 Like & Comment</button>
+<button id="likeBtn" class="yt-btn" onclick="likeVideo()">💬 Like & Comment</button>
 
 <div id="status">Complete steps to unlock Get Link</div>
 
@@ -196,16 +215,30 @@ let liked=false
 
 function subscribe(){
 
+if(subscribed) return
+
 window.open("CHANNEL_LINK","_blank")
+
 subscribed=true
+
+document.getElementById("subBtn").innerText="✔ Completed"
+document.getElementById("subBtn").classList.add("completed")
+
 checkSteps()
 
 }
 
 function likeVideo(){
 
+if(liked) return
+
 window.open("VIDEO_LINK","_blank")
+
 liked=true
+
+document.getElementById("likeBtn").innerText="✔ Completed"
+document.getElementById("likeBtn").classList.add("completed")
+
 checkSteps()
 
 }
@@ -360,6 +393,28 @@ toast.classList.remove("show")
 },2000)
 
 }
+
+/* bubble background */
+
+function createBubble(){
+
+let b=document.createElement("div")
+
+b.className="bubble"
+
+let size=Math.random()*120+40
+
+b.style.width=size+"px"
+b.style.height=size+"px"
+b.style.left=Math.random()*100+"%"
+
+document.body.appendChild(b)
+
+setTimeout(()=>b.remove(),10000)
+
+}
+
+setInterval(createBubble,600)
 
 </script>
 
