@@ -61,8 +61,14 @@ margin-bottom:10px;
 }
 
 #status{
-margin-bottom:15px;
+margin-bottom:10px;
 font-size:18px;
+}
+
+#actions{
+margin-bottom:15px;
+font-size:15px;
+opacity:0.8;
 }
 
 #progress{
@@ -78,7 +84,7 @@ display:none;
 #bar{
 height:100%;
 width:0%;
-background:linear-gradient(90deg,#ff4b4b,#ff0000,#ff4b4b);
+background:linear-gradient(90deg,#00c853,#00e676,#00c853);
 background-size:200% 100%;
 animation:shine 1.5s linear infinite;
 transition:width 0.1s linear;
@@ -114,6 +120,8 @@ display:none;
 
 .completed{
 background:linear-gradient(90deg,#00c853,#00e676,#00c853);
+box-shadow:0 0 20px rgba(0,255,120,0.8);
+animation:none;
 }
 
 .page{
@@ -150,8 +158,6 @@ transition:0.4s;
 top:30px;
 }
 
-/* bubble background */
-
 .bubble{
 position:fixed;
 border-radius:50%;
@@ -183,6 +189,7 @@ src="https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg">
 <button id="likeBtn" class="yt-btn" onclick="likeVideo()">💬 Like & Comment</button>
 
 <div id="status">Complete steps to unlock Get Link</div>
+<div id="actions">0 / 2 Action Completed</div>
 
 <div id="progress">
 <div id="bar"></div>
@@ -213,18 +220,18 @@ loadstring(game:HttpGet("https://raw.githubusercontent
 let subscribed=false
 let liked=false
 
+let actionCount=0
+let actionStart=0
+let waitingAction=null
+
 function subscribe(){
 
 if(subscribed) return
 
 window.open("CHANNEL_LINK","_blank")
 
-subscribed=true
-
-document.getElementById("subBtn").innerText="✔ Completed"
-document.getElementById("subBtn").classList.add("completed")
-
-checkSteps()
+waitingAction="sub"
+actionStart=Date.now()
 
 }
 
@@ -234,12 +241,53 @@ if(liked) return
 
 window.open("VIDEO_LINK","_blank")
 
+waitingAction="like"
+actionStart=Date.now()
+
+}
+
+document.addEventListener("visibilitychange",function(){
+
+if(!document.hidden && waitingAction){
+
+let stay=(Date.now()-actionStart)/1000
+
+if(stay>=3){
+
+if(waitingAction==="sub"){
+
+subscribed=true
+actionCount++
+
+document.getElementById("subBtn").innerText="✔ Completed"
+document.getElementById("subBtn").classList.add("completed")
+
+}
+
+if(waitingAction==="like"){
+
 liked=true
+actionCount++
 
 document.getElementById("likeBtn").innerText="✔ Completed"
 document.getElementById("likeBtn").classList.add("completed")
 
+}
+
+updateActions()
 checkSteps()
+
+}
+
+waitingAction=null
+
+}
+
+})
+
+function updateActions(){
+
+document.getElementById("actions").innerText=actionCount+" / 2 Action Completed"
 
 }
 
@@ -393,8 +441,6 @@ toast.classList.remove("show")
 },2000)
 
 }
-
-/* bubble background */
 
 function createBubble(){
 
