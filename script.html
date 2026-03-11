@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -17,147 +18,276 @@ font-family:Arial;
 }
 
 body{
-background:#0b0b0b url("https://wallpaperaccess.com/full/1267587.jpg") center/cover fixed;
+background:#0b0b0b;
 color:white;
+min-height:100vh;
 }
 
+/* galaxy stars */
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background-image:
+radial-gradient(white 1px, transparent 1px),
+radial-gradient(white 1px, transparent 1px);
+
+background-size:40px 40px,80px 80px;
+
+opacity:0.07;
+
+pointer-events:none;
+
+}
+
+/* header */
+
 header{
+
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:15px;
-background:rgba(0,0,0,0.8);
-backdrop-filter:blur(5px);
+
+padding:15px 25px;
+
+background:#111;
+
+border-bottom:1px solid #222;
+
 }
 
 .logo{
+
 font-size:22px;
 font-weight:bold;
+
 }
 
 #search{
+
 padding:10px;
-border-radius:6px;
 border:none;
+border-radius:6px;
 width:220px;
+
 }
+
+/* layout */
 
 .main{
+
 display:flex;
+
 }
 
+/* sidebar */
+
 .sidebar{
+
 width:200px;
-background:rgba(0,0,0,0.7);
+background:#0f0f0f;
 padding:20px;
+
+border-right:1px solid #222;
+
 }
 
 .sidebar h3{
+
 margin-bottom:10px;
+
 }
 
 .sidebar ul{
+
 list-style:none;
+
 }
 
 .sidebar li{
+
 padding:10px;
-cursor:pointer;
 border-radius:6px;
+cursor:pointer;
+
 }
 
 .sidebar li:hover{
+
 background:#222;
+
 }
 
+/* content */
+
 .content{
+
 flex:1;
-padding:25px;
+padding:30px;
+
 }
 
 .grid{
+
 display:grid;
+
 grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+
 gap:20px;
+
 }
 
+/* card */
+
 .card{
-background:rgba(0,0,0,0.8);
+
+background:#151515;
+
 border-radius:10px;
+
 overflow:hidden;
+
 transition:0.3s;
-box-shadow:0 0 10px rgba(0,0,0,0.5);
+
+border:1px solid #222;
+
 }
 
 .card:hover{
-transform:scale(1.05);
+
+transform:translateY(-4px);
+
 }
 
 .card img{
+
 width:100%;
-height:160px;
+height:150px;
+
 object-fit:cover;
+
 }
 
 .card-body{
+
 padding:15px;
+
 }
 
 .card-body h3{
+
 margin-bottom:10px;
+
 }
 
 textarea{
+
 width:100%;
+
 height:70px;
+
 background:#0f0f0f;
+
 color:#00ff9d;
+
 border:none;
+
 padding:10px;
+
 border-radius:6px;
+
 resize:none;
+
 }
 
+/* buttons */
+
 .buttons{
+
 display:flex;
+
 gap:8px;
+
 margin-top:10px;
+
 }
 
 button{
+
 flex:1;
+
 padding:8px;
+
 border:none;
+
 border-radius:6px;
+
 background:#222;
+
 color:white;
+
 cursor:pointer;
+
 }
 
 button:hover{
+
 background:white;
 color:black;
+
 }
 
 .counter{
-margin-top:6px;
+
+margin-top:8px;
+
 font-size:13px;
+
 opacity:0.7;
+
 }
+
+/* ad */
 
 .ad{
+
 margin-top:40px;
+
 padding:30px;
+
 text-align:center;
-background:rgba(0,0,0,0.6);
+
+background:#111;
+
 border-radius:10px;
+
+border:1px solid #222;
+
 }
 
+/* footer */
+
 footer{
+
 margin-top:40px;
+
 text-align:center;
+
 padding:20px;
-background:rgba(0,0,0,0.8);
+
+background:#111;
+
+border-top:1px solid #222;
+
 }
 
 </style>
@@ -176,6 +306,8 @@ background:rgba(0,0,0,0.8);
 
 <div class="main">
 
+<!-- sidebar -->
+
 <aside class="sidebar">
 
 <h3>Categories</h3>
@@ -191,14 +323,15 @@ background:rgba(0,0,0,0.8);
 
 </aside>
 
+<!-- content -->
 
 <section class="content">
 
 <h2>🔥 Trending Scripts</h2>
 
-<div class="grid" id="scripts">
+<div class="grid">
 
-<!-- SCRIPT 1 -->
+<!-- script 1 -->
 
 <div class="card" data-category="farm">
 
@@ -208,26 +341,31 @@ background:rgba(0,0,0,0.8);
 
 <h3>Blox Fruits Auto Farm</h3>
 
-<textarea id="s1">
+<textarea id="script1">
 loadstring(game:HttpGet("https://example.com/script1"))()
 </textarea>
 
 <div class="buttons">
 
-<button onclick="copyScript('s1','c1')">Copy</button>
-<button onclick="downloadScript('s1')">Download</button>
+<button onclick="copyScript('script1','count1')">Copy</button>
+
+<button onclick="downloadScript('script1')">Download</button>
+
 <button onclick="bypass()">Get Link</button>
 
 </div>
 
-<div class="counter" id="c1">Copied 0 times</div>
+<div class="counter" id="count1">
+
+Copied 0 times
 
 </div>
 
 </div>
 
+</div>
 
-<!-- SCRIPT 2 -->
+<!-- script 2 -->
 
 <div class="card" data-category="esp">
 
@@ -237,19 +375,23 @@ loadstring(game:HttpGet("https://example.com/script1"))()
 
 <h3>Arsenal ESP</h3>
 
-<textarea id="s2">
+<textarea id="script2">
 loadstring(game:HttpGet("https://example.com/script2"))()
 </textarea>
 
 <div class="buttons">
 
-<button onclick="copyScript('s2','c2')">Copy</button>
-<button onclick="downloadScript('s2')">Download</button>
+<button onclick="copyScript('script2','count2')">Copy</button>
+
+<button onclick="downloadScript('script2')">Download</button>
+
 <button onclick="bypass()">Get Link</button>
 
 </div>
 
-<div class="counter" id="c2">Copied 0 times</div>
+<div class="counter" id="count2">
+
+Copied 0 times
 
 </div>
 
@@ -257,6 +399,9 @@ loadstring(game:HttpGet("https://example.com/script2"))()
 
 </div>
 
+</div>
+
+<!-- ad -->
 
 <div class="ad">
 
@@ -270,15 +415,15 @@ YOUR AD HERE
 
 </div>
 
-
 <footer>
 
 ScriptGalaxy © 2026
 
 </footer>
 
-
 <script>
+
+/* copy counter */
 
 let counters={}
 
@@ -292,11 +437,12 @@ if(!counters[id]) counters[id]=0
 
 counters[id]++
 
-document.getElementById(counter).innerText="Copied "+counters[id]+" times"
-
-alert("Script copied")
+document.getElementById(counter).innerText=
+"Copied "+counters[id]+" times"
 
 }
+
+/* download */
 
 function downloadScript(id){
 
@@ -314,13 +460,17 @@ a.click()
 
 }
 
+/* bypass */
+
 function bypass(){
 
-/* เปลี่ยนลิงก์ bypass ตรงนี้ */
+/* เปลี่ยนลิงก์ตรงนี้ */
 
 window.open("https://example-bypass.com")
 
 }
+
+/* search */
 
 document.getElementById("search").addEventListener("keyup",function(){
 
@@ -337,6 +487,8 @@ card.style.display=title.includes(value)?"block":"none"
 })
 
 })
+
+/* filter */
 
 function filter(category){
 
@@ -361,4 +513,5 @@ card.style.display="none"
 </script>
 
 </body>
+
 </html>
