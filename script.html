@@ -5,70 +5,90 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>Script Library</title>
+<title>ScriptPortal</title>
 
 <style>
 
 *{
-box-sizing:border-box;
 margin:0;
 padding:0;
+box-sizing:border-box;
 font-family:Arial;
 }
 
 body{
-
-background:#0f0f0f;
+background:#0b0b0b;
 color:white;
-
 }
 
 header{
 
-background:#151515;
+background:#111;
 padding:20px;
-text-align:center;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
 
 }
 
-header h1{
-
-font-size:28px;
-
+.logo{
+font-size:24px;
+font-weight:bold;
+color:#00ffa6;
 }
 
 #search{
 
-margin-top:15px;
 padding:10px;
-width:90%;
-max-width:400px;
-
 border:none;
 border-radius:6px;
+
+width:220px;
 
 }
 
 .container{
 
-padding:20px;
+padding:30px;
 
 display:grid;
 
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
 
-gap:20px;
+gap:25px;
 
 }
 
 .card{
 
-background:#1c1c1c;
-border-radius:10px;
+background:#151515;
+
+border-radius:12px;
 
 overflow:hidden;
 
-box-shadow:0 0 10px rgba(0,0,0,0.4);
+box-shadow:0 0 15px rgba(0,0,0,0.6);
+
+position:relative;
+
+}
+
+.top{
+
+position:absolute;
+
+top:10px;
+left:10px;
+
+background:#ff003c;
+
+padding:5px 10px;
+
+font-size:12px;
+
+border-radius:6px;
 
 }
 
@@ -81,23 +101,23 @@ object-fit:cover;
 
 }
 
-.card-body{
+.content{
 
 padding:15px;
 
 }
 
-.card h2{
+.title{
 
-font-size:20px;
+font-size:18px;
+margin-bottom:5px;
 
 }
 
 .game{
 
-opacity:0.7;
-font-size:14px;
-
+font-size:13px;
+opacity:0.6;
 margin-bottom:10px;
 
 }
@@ -124,31 +144,33 @@ resize:none;
 
 .buttons{
 
-display:flex;
-
-gap:10px;
-
 margin-top:10px;
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:8px;
 
 }
 
 button{
 
-flex:1;
-
-padding:10px;
+padding:9px;
 
 border:none;
 
 border-radius:6px;
 
-cursor:pointer;
-
-background:#2b2b2b;
+background:#222;
 
 color:white;
 
+cursor:pointer;
+
 transition:0.2s;
+
+font-size:13px;
 
 }
 
@@ -158,132 +180,136 @@ background:#00c97a;
 
 }
 
-.top{
+.favorite{
 
 position:absolute;
 
-background:red;
+top:10px;
+right:10px;
 
-padding:5px 10px;
-
-font-size:12px;
-
-border-radius:5px;
-
-margin:10px;
-
-}
-
-.favorite{
+font-size:18px;
 
 cursor:pointer;
 
-float:right;
+}
 
-font-size:18px;
+.counter{
+
+font-size:12px;
+opacity:0.6;
+margin-top:8px;
 
 }
 
 .ad{
 
-margin:30px auto;
-
+margin:30px;
 text-align:center;
 
 }
 
 footer{
 
+margin-top:40px;
+
 text-align:center;
 
 padding:20px;
 
-opacity:0.6;
+opacity:0.5;
 
 }
 
 </style>
 
 </head>
+
 <body>
 
 <header>
 
-<h1>⚡ Script Library</h1>
+<div class="logo">⚡ ScriptPortal</div>
 
-<input id="search" placeholder="Search Script...">
+<input id="search" placeholder="Search script...">
 
 </header>
 
+
 <div class="ad">
 
-<!-- Adsterra / PopAds ใส่โค้ดตรงนี้ -->
+<!-- ใส่โค้ดโฆษณา Adsterra / PopAds -->
 
 AD SPACE
 
 </div>
 
-<div class="container" id="scriptList">
 
-<!-- SCRIPT 1 -->
+<div class="container" id="scripts">
+
+<!-- SCRIPT -->
 
 <div class="card">
 
 <div class="top">🔥 TOP</div>
 
+<div class="favorite" onclick="fav(this)">⭐</div>
+
 <img src="https://tr.rbxcdn.com/180DAY-6f54b3f6c2a8a8e4a10d6b8b1c2b2c4c/768/432/Image/Webp/noFilter">
 
-<div class="card-body">
+<div class="content">
 
-<span class="favorite" onclick="fav(this)">⭐</span>
+<div class="title">Auto Farm</div>
 
-<h2>Auto Farm</h2>
+<div class="game">Game : Blox Fruits</div>
 
-<p class="game">Game : Blox Fruits</p>
-
-<textarea id="script1">
+<textarea id="s1">
 loadstring(game:HttpGet("https://example.com/script1"))()
 </textarea>
 
 <div class="buttons">
 
-<button onclick="copyScript('script1')">📋 Copy</button>
+<button onclick="copyScript('s1')">Copy</button>
 
-<button onclick="downloadScript('script1')">⬇ Download</button>
+<button onclick="downloadScript('s1')">Download</button>
 
-<button onclick="bypass()">🔗 Get Link</button>
+<button onclick="bypass()">Get Link</button>
+
+</div>
+
+<div class="counter" id="c1">Copies : 0</div>
 
 </div>
 
 </div>
 
-</div>
-
-<!-- SCRIPT 2 -->
 
 <div class="card">
 
+<div class="favorite" onclick="fav(this)">⭐</div>
+
 <img src="https://tr.rbxcdn.com/180DAY-f1e2c3d4e5f6/768/432/Image/Webp/noFilter">
 
-<div class="card-body">
+<div class="content">
 
-<span class="favorite" onclick="fav(this)">⭐</span>
+<div class="title">ESP Player</div>
 
-<h2>ESP Player</h2>
+<div class="game">Game : Universal</div>
 
-<p class="game">Game : Universal</p>
-
-<textarea id="script2">
+<textarea id="s2">
 loadstring(game:HttpGet("https://example.com/script2"))()
 </textarea>
 
 <div class="buttons">
 
-<button onclick="copyScript('script2')">📋 Copy</button>
+<button onclick="copyScript('s2')">Copy</button>
 
-<button onclick="downloadScript('script2')">⬇ Download</button>
+<button onclick="downloadScript('s2')">Download</button>
 
-<button onclick="bypass()">🔗 Get Link</button>
+<button onclick="bypass()">Get Link</button>
+
+</div>
+
+<div class="counter" id="c2">Copies : 0</div>
 
 </div>
 
@@ -291,15 +317,17 @@ loadstring(game:HttpGet("https://example.com/script2"))()
 
 </div>
 
-</div>
 
 <footer>
 
-Script Hub © 2026
+ScriptPortal © 2026
 
 </footer>
 
+
 <script>
+
+let counters={}
 
 function copyScript(id){
 
@@ -307,7 +335,13 @@ let text=document.getElementById(id).value
 
 navigator.clipboard.writeText(text)
 
-alert("✅ Script Copied")
+alert("Script Copied")
+
+if(!counters[id]) counters[id]=0
+
+counters[id]++
+
+document.getElementById("c"+id.slice(1)).innerText="Copies : "+counters[id]
 
 }
 
@@ -343,7 +377,7 @@ el.style.color="gold"
 
 function bypass(){
 
-window.open("https://example-bypass-link.com")
+window.open("https://example-bypass.com")
 
 }
 
@@ -355,7 +389,7 @@ let cards=document.querySelectorAll(".card")
 
 cards.forEach(card=>{
 
-let title=card.querySelector("h2").innerText.toLowerCase()
+let title=card.querySelector(".title").innerText.toLowerCase()
 
 if(title.includes(value)){
 
