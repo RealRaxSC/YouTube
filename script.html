@@ -19,23 +19,18 @@ font-family:Arial;
 body{
 
 color:white;
+background:#050505;
 min-height:100vh;
-background:
-radial-gradient(circle at 20% 20%, #1a1a1a, #000000),
-radial-gradient(circle at 80% 40%, #111111, #000000);
-
-overflow-x:hidden;
 
 }
 
-/* animated stars */
+/* galaxy background */
 
 body::before{
 
 content:"";
 position:fixed;
-top:0;
-left:0;
+
 width:100%;
 height:100%;
 
@@ -43,25 +38,11 @@ background-image:
 radial-gradient(white 1px, transparent 1px),
 radial-gradient(white 1px, transparent 1px);
 
-background-size:30px 30px,70px 70px;
+background-size:35px 35px,80px 80px;
 
-opacity:0.08;
-
-animation:stars 60s linear infinite;
+opacity:0.1;
 
 pointer-events:none;
-
-}
-
-@keyframes stars{
-
-from{
-transform:translateY(0);
-}
-
-to{
-transform:translateY(-200px);
-}
 
 }
 
@@ -73,9 +54,9 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 
-padding:15px 25px;
+padding:18px 30px;
 
-background:#0f0f0f;
+background:#0c0c0c;
 
 border-bottom:1px solid #222;
 
@@ -102,8 +83,10 @@ width:220px;
 /* layout */
 
 .main{
+
 display:flex;
 flex-wrap:wrap;
+
 }
 
 /* sidebar */
@@ -111,16 +94,33 @@ flex-wrap:wrap;
 .sidebar{
 
 width:200px;
-background:#0c0c0c;
+
+background:#0b0b0b;
+
 padding:20px;
+
 border-right:1px solid #222;
+
+}
+
+.sidebar h3{
+
+margin-bottom:12px;
+
+}
+
+.sidebar ul{
+
+list-style:none;
 
 }
 
 .sidebar li{
 
 padding:10px;
+
 border-radius:6px;
+
 cursor:pointer;
 
 }
@@ -136,28 +136,37 @@ background:#222;
 .content{
 
 flex:1;
+
 padding:30px;
 
 }
+
+/* grid */
 
 .grid{
 
 display:grid;
 
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 
 gap:25px;
 
+margin-top:20px;
+
 }
 
-/* cards */
+/* card */
 
 .card{
 
 background:#121212;
+
 border-radius:12px;
+
 overflow:hidden;
+
 border:1px solid #222;
+
 transition:0.25s;
 
 }
@@ -165,6 +174,7 @@ transition:0.25s;
 .card:hover{
 
 transform:translateY(-6px);
+
 box-shadow:0 10px 25px rgba(0,0,0,0.6);
 
 }
@@ -172,8 +182,12 @@ box-shadow:0 10px 25px rgba(0,0,0,0.6);
 .card img{
 
 width:100%;
-height:150px;
+
+height:180px;
+
 object-fit:cover;
+
+border-bottom:1px solid #222;
 
 }
 
@@ -183,12 +197,21 @@ padding:15px;
 
 }
 
+.card-body h3{
+
+margin-bottom:10px;
+
+}
+
+/* script box */
+
 textarea{
 
 width:100%;
+
 height:70px;
 
-background:#0a0a0a;
+background:#080808;
 
 color:#00ff9d;
 
@@ -207,7 +230,9 @@ resize:none;
 .buttons{
 
 display:flex;
+
 gap:8px;
+
 margin-top:10px;
 
 }
@@ -222,7 +247,7 @@ border:none;
 
 border-radius:6px;
 
-background:#222;
+background:#1f1f1f;
 
 color:white;
 
@@ -233,14 +258,19 @@ cursor:pointer;
 button:hover{
 
 background:white;
+
 color:black;
 
 }
 
+/* counter */
+
 .counter{
 
-font-size:13px;
 margin-top:8px;
+
+font-size:13px;
+
 opacity:0.7;
 
 }
@@ -255,7 +285,7 @@ padding:30px;
 
 text-align:center;
 
-background:#0f0f0f;
+background:#0e0e0e;
 
 border-radius:10px;
 
@@ -263,12 +293,17 @@ border:1px solid #222;
 
 }
 
+/* footer */
+
 footer{
 
 margin-top:40px;
+
 text-align:center;
+
 padding:20px;
-background:#0f0f0f;
+
+background:#0c0c0c;
 
 }
 
@@ -277,7 +312,9 @@ background:#0f0f0f;
 .sidebar{
 
 width:100%;
+
 border-right:none;
+
 border-bottom:1px solid #222;
 
 }
@@ -285,6 +322,7 @@ border-bottom:1px solid #222;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -298,6 +336,8 @@ border-bottom:1px solid #222;
 </header>
 
 <div class="main">
+
+<!-- sidebar -->
 
 <aside class="sidebar">
 
@@ -320,65 +360,65 @@ border-bottom:1px solid #222;
 
 <div class="grid">
 
-<!-- SCRIPT 1 -->
+<!-- BLOX FRUITS -->
 
 <div class="card" data-category="farm">
 
-<img src="https://images.alphacoders.com/131/1310417.jpeg">
+<img src="https://tr.rbxcdn.com/180DAY-8c8d3e1c9cbb4b2c54c2a64e4b7f6a7e/768/432/Image/Webp/noFilter">
 
 <div class="card-body">
 
-<h3>Blox Fruits Auto Farm</h3>
+<h3>🔥 Blox Fruits Auto Farm</h3>
 
-<textarea id="script1">
-loadstring(game:HttpGet("https://example.com/script1"))()
-</textarea>
+<textarea id="script1">loadstring(game:HttpGet("https://example.com/script1"))()</textarea>
 
 <div class="buttons">
 
-<button onclick="copyScript('script1','count1')">Copy</button>
-<button onclick="downloadScript('script1')">Download</button>
-<button onclick="openBypass()">Get Link</button>
+<button onclick="copyScript('script1','count1')">📋 Copy</button>
+
+<button onclick="downloadScript('script1')">⬇ Download</button>
+
+<button onclick="openBypass()">🔗 Get Link</button>
 
 </div>
 
-<div class="counter" id="count1">
-Copied 0 times
+<div class="counter" id="count1">Copied 0 times</div>
+
 </div>
 
 </div>
-</div>
 
-<!-- SCRIPT 2 -->
+<!-- ARSENAL -->
 
 <div class="card" data-category="esp">
 
-<img src="https://images.alphacoders.com/132/1329093.jpeg">
+<img src="https://tr.rbxcdn.com/180DAY-7d4c1a7b8e63b7e0c3c6f8eab4c1a9fa/768/432/Image/Webp/noFilter">
 
 <div class="card-body">
 
-<h3>Arsenal ESP</h3>
+<h3>🎯 Arsenal ESP</h3>
 
-<textarea id="script2">
-loadstring(game:HttpGet("https://example.com/script2"))()
-</textarea>
+<textarea id="script2">loadstring(game:HttpGet("https://example.com/script2"))()</textarea>
 
 <div class="buttons">
 
-<button onclick="copyScript('script2','count2')">Copy</button>
-<button onclick="downloadScript('script2')">Download</button>
-<button onclick="openBypass()">Get Link</button>
+<button onclick="copyScript('script2','count2')">📋 Copy</button>
+
+<button onclick="downloadScript('script2')">⬇ Download</button>
+
+<button onclick="openBypass()">🔗 Get Link</button>
 
 </div>
 
-<div class="counter" id="count2">
-Copied 0 times
+<div class="counter" id="count2">Copied 0 times</div>
+
 </div>
 
 </div>
-</div>
 
 </div>
+
+<!-- ad -->
 
 <div class="ad">
 
@@ -400,6 +440,8 @@ ScriptGalaxy © 2026
 
 let counters={}
 
+/* copy */
+
 function copyScript(id,counter){
 
 let text=document.getElementById(id).value
@@ -414,6 +456,8 @@ document.getElementById(counter).innerText=
 "Copied "+counters[id]+" times"
 
 }
+
+/* download */
 
 function downloadScript(id){
 
@@ -431,11 +475,15 @@ a.click()
 
 }
 
+/* bypass */
+
 function openBypass(){
 
 window.open("https://example-bypass.com")
 
 }
+
+/* search */
 
 document.getElementById("search").addEventListener("keyup",function(){
 
@@ -452,6 +500,8 @@ card.style.display=title.includes(value)?"block":"none"
 })
 
 })
+
+/* filter */
 
 function filterCategory(category){
 
