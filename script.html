@@ -3,9 +3,9 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ScriptPortal</title>
+<title>ScriptGalaxy</title>
 
 <style>
 
@@ -17,207 +17,147 @@ font-family:Arial;
 }
 
 body{
-background:#0b0b0b;
+background:#0b0b0b url("https://wallpaperaccess.com/full/1267587.jpg") center/cover fixed;
 color:white;
 }
 
 header{
-
-background:#111;
-padding:20px;
-
 display:flex;
 justify-content:space-between;
 align-items:center;
-flex-wrap:wrap;
-
+padding:15px;
+background:rgba(0,0,0,0.8);
+backdrop-filter:blur(5px);
 }
 
 .logo{
-font-size:24px;
+font-size:22px;
 font-weight:bold;
-color:#00ffa6;
 }
 
 #search{
-
 padding:10px;
+border-radius:6px;
 border:none;
-border-radius:6px;
-
 width:220px;
-
 }
 
-.container{
-
-padding:30px;
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-
-gap:25px;
-
+.main{
+display:flex;
 }
 
-.card{
-
-background:#151515;
-
-border-radius:12px;
-
-overflow:hidden;
-
-box-shadow:0 0 15px rgba(0,0,0,0.6);
-
-position:relative;
-
+.sidebar{
+width:200px;
+background:rgba(0,0,0,0.7);
+padding:20px;
 }
 
-.top{
+.sidebar h3{
+margin-bottom:10px;
+}
 
-position:absolute;
+.sidebar ul{
+list-style:none;
+}
 
-top:10px;
-left:10px;
-
-background:#ff003c;
-
-padding:5px 10px;
-
-font-size:12px;
-
+.sidebar li{
+padding:10px;
+cursor:pointer;
 border-radius:6px;
-
 }
 
-.card img{
-
-width:100%;
-height:160px;
-
-object-fit:cover;
-
+.sidebar li:hover{
+background:#222;
 }
 
 .content{
+flex:1;
+padding:25px;
+}
 
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+gap:20px;
+}
+
+.card{
+background:rgba(0,0,0,0.8);
+border-radius:10px;
+overflow:hidden;
+transition:0.3s;
+box-shadow:0 0 10px rgba(0,0,0,0.5);
+}
+
+.card:hover{
+transform:scale(1.05);
+}
+
+.card img{
+width:100%;
+height:160px;
+object-fit:cover;
+}
+
+.card-body{
 padding:15px;
-
 }
 
-.title{
-
-font-size:18px;
-margin-bottom:5px;
-
-}
-
-.game{
-
-font-size:13px;
-opacity:0.6;
+.card-body h3{
 margin-bottom:10px;
-
 }
 
 textarea{
-
 width:100%;
-
-height:80px;
-
+height:70px;
 background:#0f0f0f;
-
 color:#00ff9d;
-
 border:none;
-
 padding:10px;
-
 border-radius:6px;
-
 resize:none;
-
 }
 
 .buttons{
-
-margin-top:10px;
-
-display:grid;
-
-grid-template-columns:repeat(3,1fr);
-
+display:flex;
 gap:8px;
-
+margin-top:10px;
 }
 
 button{
-
-padding:9px;
-
+flex:1;
+padding:8px;
 border:none;
-
 border-radius:6px;
-
 background:#222;
-
 color:white;
-
 cursor:pointer;
-
-transition:0.2s;
-
-font-size:13px;
-
 }
 
 button:hover{
-
-background:#00c97a;
-
-}
-
-.favorite{
-
-position:absolute;
-
-top:10px;
-right:10px;
-
-font-size:18px;
-
-cursor:pointer;
-
+background:white;
+color:black;
 }
 
 .counter{
-
-font-size:12px;
-opacity:0.6;
-margin-top:8px;
-
+margin-top:6px;
+font-size:13px;
+opacity:0.7;
 }
 
 .ad{
-
-margin:30px;
+margin-top:40px;
+padding:30px;
 text-align:center;
-
+background:rgba(0,0,0,0.6);
+border-radius:10px;
 }
 
 footer{
-
 margin-top:40px;
-
 text-align:center;
-
 padding:20px;
-
-opacity:0.5;
-
+background:rgba(0,0,0,0.8);
 }
 
 </style>
@@ -228,39 +168,45 @@ opacity:0.5;
 
 <header>
 
-<div class="logo">⚡ ScriptPortal</div>
+<div class="logo">🌌 ScriptGalaxy</div>
 
 <input id="search" placeholder="Search script...">
 
 </header>
 
+<div class="main">
 
-<div class="ad">
+<aside class="sidebar">
 
-<!-- ใส่โค้ดโฆษณา Adsterra / PopAds -->
+<h3>Categories</h3>
 
-AD SPACE
+<ul>
 
-</div>
+<li onclick="filter('all')">All Scripts</li>
+<li onclick="filter('farm')">Auto Farm</li>
+<li onclick="filter('esp')">ESP</li>
+<li onclick="filter('misc')">Misc</li>
+
+</ul>
+
+</aside>
 
 
-<div class="container" id="scripts">
+<section class="content">
 
-<!-- SCRIPT -->
+<h2>🔥 Trending Scripts</h2>
 
-<div class="card">
+<div class="grid" id="scripts">
 
-<div class="top">🔥 TOP</div>
+<!-- SCRIPT 1 -->
 
-<div class="favorite" onclick="fav(this)">⭐</div>
+<div class="card" data-category="farm">
 
 <img src="https://tr.rbxcdn.com/180DAY-6f54b3f6c2a8a8e4a10d6b8b1c2b2c4c/768/432/Image/Webp/noFilter">
 
-<div class="content">
+<div class="card-body">
 
-<div class="title">Auto Farm</div>
-
-<div class="game">Game : Blox Fruits</div>
+<h3>Blox Fruits Auto Farm</h3>
 
 <textarea id="s1">
 loadstring(game:HttpGet("https://example.com/script1"))()
@@ -268,32 +214,28 @@ loadstring(game:HttpGet("https://example.com/script1"))()
 
 <div class="buttons">
 
-<button onclick="copyScript('s1')">Copy</button>
-
+<button onclick="copyScript('s1','c1')">Copy</button>
 <button onclick="downloadScript('s1')">Download</button>
-
 <button onclick="bypass()">Get Link</button>
 
 </div>
 
-<div class="counter" id="c1">Copies : 0</div>
+<div class="counter" id="c1">Copied 0 times</div>
 
 </div>
 
 </div>
 
 
-<div class="card">
+<!-- SCRIPT 2 -->
 
-<div class="favorite" onclick="fav(this)">⭐</div>
+<div class="card" data-category="esp">
 
 <img src="https://tr.rbxcdn.com/180DAY-f1e2c3d4e5f6/768/432/Image/Webp/noFilter">
 
-<div class="content">
+<div class="card-body">
 
-<div class="title">ESP Player</div>
-
-<div class="game">Game : Universal</div>
+<h3>Arsenal ESP</h3>
 
 <textarea id="s2">
 loadstring(game:HttpGet("https://example.com/script2"))()
@@ -301,26 +243,37 @@ loadstring(game:HttpGet("https://example.com/script2"))()
 
 <div class="buttons">
 
-<button onclick="copyScript('s2')">Copy</button>
-
+<button onclick="copyScript('s2','c2')">Copy</button>
 <button onclick="downloadScript('s2')">Download</button>
-
 <button onclick="bypass()">Get Link</button>
 
 </div>
 
-<div class="counter" id="c2">Copies : 0</div>
+<div class="counter" id="c2">Copied 0 times</div>
 
 </div>
 
 </div>
+
+</div>
+
+
+<div class="ad">
+
+<!-- ใส่โค้ดโฆษณา Adsterra / PopAds ตรงนี้ -->
+
+YOUR AD HERE
+
+</div>
+
+</section>
 
 </div>
 
 
 <footer>
 
-ScriptPortal © 2026
+ScriptGalaxy © 2026
 
 </footer>
 
@@ -329,19 +282,19 @@ ScriptPortal © 2026
 
 let counters={}
 
-function copyScript(id){
+function copyScript(id,counter){
 
 let text=document.getElementById(id).value
 
 navigator.clipboard.writeText(text)
 
-alert("Script Copied")
-
 if(!counters[id]) counters[id]=0
 
 counters[id]++
 
-document.getElementById("c"+id.slice(1)).innerText="Copies : "+counters[id]
+document.getElementById(counter).innerText="Copied "+counters[id]+" times"
+
+alert("Script copied")
 
 }
 
@@ -361,21 +314,9 @@ a.click()
 
 }
 
-function fav(el){
-
-if(el.style.color=="gold"){
-
-el.style.color="white"
-
-}else{
-
-el.style.color="gold"
-
-}
-
-}
-
 function bypass(){
+
+/* เปลี่ยนลิงก์ bypass ตรงนี้ */
 
 window.open("https://example-bypass.com")
 
@@ -389,9 +330,21 @@ let cards=document.querySelectorAll(".card")
 
 cards.forEach(card=>{
 
-let title=card.querySelector(".title").innerText.toLowerCase()
+let title=card.querySelector("h3").innerText.toLowerCase()
 
-if(title.includes(value)){
+card.style.display=title.includes(value)?"block":"none"
+
+})
+
+})
+
+function filter(category){
+
+let cards=document.querySelectorAll(".card")
+
+cards.forEach(card=>{
+
+if(category==="all"||card.dataset.category===category){
 
 card.style.display="block"
 
@@ -403,7 +356,7 @@ card.style.display="none"
 
 })
 
-})
+}
 
 </script>
 
